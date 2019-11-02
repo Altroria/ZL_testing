@@ -1,0 +1,48 @@
+2019-04-16 09:41:54,224 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 09:42:56,959 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 09:43:19,219 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 09:52:13,167 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 09:52:31,345 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 09:52:54,091 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-16 10:17:58,063 test_003_yans_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 10:18:20,924 test_003_yans_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 10:18:40,531 test_003_yans_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 10:19:10,234 test_003_yans_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:00:41,834 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:00:48,670 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:01:51,808 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:04:10,443 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:04:43,423 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:05:12,565 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:05:52,609 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:10:22,492 test_004_dengz_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 14:59:30,983 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:00:20,452 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:01:07,669 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:01:56,976 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:02:44,611 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:07:40,741 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:08:21,453 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:09:13,347 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:14:04,627 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:15:11,116 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:15:52,690 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:16:34,266 test_005_fenp_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:43:20,579 test_006_guih_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:49:10,368 test_006_guih_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:50:05,147 test_006_guih_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:52:45,894 test_006_guih_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 15:57:38,422 test_006_guih_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:22:10,472 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:22:26,340 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:22:40,103 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:23:08,217 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:23:59,659 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:37:11,673 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:38:31,167 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:40:50,906 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:42:40,673 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:47:13,705 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:47:57,736 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:49:50,734 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-16 17:51:14,080 test_007_zhuany_case.py--> setUp 20: INFO ----->this is chrome

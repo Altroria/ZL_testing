@@ -1,0 +1,48 @@
+2019-10-12 14:16:01,424 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:16:02,863 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:16:04,273 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:16:05,583 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:16:06,885 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:21:32,872 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:22:03,325 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:22:04,802 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:22:05,735 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:22:06,801 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:22:07,773 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:22:25,479 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:22:47,822 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:23:07,293 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:23:31,030 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:23:56,226 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:24:20,384 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:24:39,643 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:25:14,227 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 14:25:34,444 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 14:25:54,682 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 14:26:20,836 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 14:26:59,857 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-10-12 14:27:45,946 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-10-12 14:28:54,839 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-10-12 14:29:48,453 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-10-12 14:30:47,218 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-10-12 14:58:01,692 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:58:02,810 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:58:03,811 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:58:04,947 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:58:05,882 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-10-12 14:58:31,795 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:58:52,165 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:59:12,436 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 14:59:37,412 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 15:00:01,446 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 15:00:25,672 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 15:00:45,534 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-10-12 15:01:17,811 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 15:01:38,484 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 15:01:58,864 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 15:02:22,759 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-10-12 15:03:01,726 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-10-12 15:03:46,990 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-10-12 15:04:43,921 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-10-12 15:05:23,877 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-10-12 15:06:05,172 test_005_fenp_case.py--> setUp 20: INFO ----->分配

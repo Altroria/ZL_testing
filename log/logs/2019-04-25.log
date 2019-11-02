@@ -1,0 +1,99 @@
+2019-04-25 14:08:07,479 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:24,728 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:25,850 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:26,834 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:27,883 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:28,990 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:09:54,961 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:10:15,653 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:10:30,167 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:10:55,700 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:11:07,825 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:11:30,868 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:11:51,885 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:12:24,986 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 14:12:35,619 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 14:12:42,699 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 14:12:57,156 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 14:13:23,891 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:13:37,338 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:14:03,931 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 14:14:17,879 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 14:14:31,680 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 14:14:57,845 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-04-25 14:15:11,308 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-04-25 14:15:38,248 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 14:15:51,896 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 14:16:05,380 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 14:16:19,416 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 14:16:45,782 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 14:16:59,275 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 14:17:12,666 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 14:17:26,061 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 14:17:52,200 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:18:06,465 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:18:20,138 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:18:33,887 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:18:47,822 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:19:01,726 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:19:28,805 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:19:42,697 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:19:56,624 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:20:10,254 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:20:36,934 test_011_chuzu_case.py--> setUp 20: INFO ----->登账
+2019-04-25 14:59:13,366 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:59:14,542 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:59:15,542 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:59:16,609 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:59:17,560 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-04-25 14:59:33,383 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 14:59:56,973 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:00:16,933 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:00:29,019 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:00:51,948 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:01:16,270 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:01:35,591 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 15:02:00,581 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 15:02:21,336 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 15:02:39,970 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 15:03:09,470 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 15:03:48,143 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:04:38,606 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:05:33,503 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 15:06:16,111 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 15:06:56,627 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-04-25 15:07:46,034 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-04-25 15:08:37,534 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-04-25 15:09:38,892 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 15:10:22,797 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 15:11:01,404 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 15:11:39,908 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-04-25 15:12:31,428 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 15:13:35,114 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 15:14:37,869 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 15:15:40,660 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-04-25 15:16:55,285 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:18:27,779 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:19:33,363 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:20:42,916 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:21:54,015 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:23:03,202 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:24:26,443 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:26:26,304 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:28:16,744 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:29:27,551 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-04-25 15:30:51,676 test_011_chuzu_case.py--> setUp 20: INFO ----->登账
+2019-04-25 16:58:42,721 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 16:59:05,254 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 16:59:25,076 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 16:59:50,533 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 17:00:15,152 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 17:00:39,168 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-04-25 17:01:30,756 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 17:01:53,025 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 17:02:11,038 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 17:02:40,011 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-04-25 17:04:43,468 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 17:05:34,323 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 17:12:58,266 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-04-25 17:16:46,954 test_004_dengz_case.py--> setUp 20: INFO ----->登账

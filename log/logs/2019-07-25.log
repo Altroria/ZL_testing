@@ -1,0 +1,53 @@
+2019-07-25 10:51:30,483 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 10:51:31,383 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 10:51:31,662 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 10:51:31,916 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 10:51:32,220 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:14:14,403 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:14:15,811 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:14:17,028 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:14:18,175 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:14:19,307 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:16:57,673 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:17:27,377 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:17:28,870 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:17:29,969 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:17:31,604 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:17:32,809 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-07-25 14:18:00,189 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:18:33,060 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:18:57,067 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:19:22,153 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:19:47,256 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:20:12,864 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:20:32,905 test_002_shenl_case.py--> setUp 20: INFO ----->配置管理
+2019-07-25 14:21:06,209 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-07-25 14:21:17,008 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-07-25 14:21:24,116 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-07-25 14:21:39,298 test_003_yans_case.py--> setUp 20: INFO ----->验收
+2019-07-25 14:22:07,151 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:22:21,408 test_004_dengz_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:22:48,235 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-07-25 14:23:01,996 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-07-25 14:23:15,182 test_005_fenp_case.py--> setUp 20: INFO ----->分配
+2019-07-25 14:23:41,726 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-07-25 14:23:55,376 test_006_guih_case.py--> setUp 20: INFO ----->归还
+2019-07-25 14:24:22,178 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-07-25 14:24:35,912 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-07-25 14:24:49,332 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-07-25 14:25:03,067 test_007_zhuany_case.py--> setUp 20: INFO ----->转移流程
+2019-07-25 14:25:30,283 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-07-25 14:25:43,935 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-07-25 14:25:57,316 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-07-25 14:26:10,704 test_008_shouh_case.py--> setUp 20: INFO ----->收回
+2019-07-25 14:26:37,584 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:26:51,660 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:27:05,317 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:27:19,192 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:27:33,000 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:27:46,646 test_009_weix_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:28:13,634 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:28:27,424 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:28:41,389 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:28:55,216 test_010_chuzhi_case.py--> setUp 20: INFO ----->登账
+2019-07-25 14:29:22,919 test_011_chuzu_case.py--> setUp 20: INFO ----->登账
