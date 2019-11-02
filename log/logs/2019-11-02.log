@@ -1,0 +1,5 @@
+2019-11-02 16:12:12,261 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-02 16:12:13,601 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-02 16:12:14,547 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-02 16:12:15,602 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-02 16:12:17,020 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
