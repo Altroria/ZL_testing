@@ -53,7 +53,7 @@ class MyLibrary:
     def _helper_method(self, arg):
         return arg.upper()
 
- 
+
 from threading import current_thread
 
 def example_keyword():
