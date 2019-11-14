@@ -4,9 +4,13 @@ import os
 import unittest
 import HTMLTestRunner
 sys.path.append(os.path.join(os.getcwd()))
+#初始driver
 from base.browser_engine import BrowserEngine
+#日志
 from log.user_log import UserLog
+#登陆
 from page.login_page import LoginPage
+#数据初始 + 检测点模块
 from page.date.make_date import make_date
 
 
@@ -41,18 +45,21 @@ class FenpCase(unittest.TestCase):
     #单位分配资产至部门
     def test_danw_fp_bum_shouh(self):
         self.zl.unit_fenp.fenp("部门")
+        #检测点：部门收货
         success = self.zl.dep_shouy.receipt()
         self.assertTrue(success, "收货成功")
 
     #单位分配资产至使用人
     def test_danw_fp_shiyr_shouh(self):
         self.zl.unit_fenp.fenp("使用人")
+        #检测点：使用人收货
         success = self.zl.user_shouy.receipt()
         self.assertTrue(success, "收货成功")
 
     #部门分配资产
     def test_bum_fp_bum_shouh(self):
         self.zl.dep_fenp.fenp("使用人")
+        #检测点：使用人收货
         success = self.zl.user_shouy.receipt()
         self.assertTrue(success, "收货成功")
 
