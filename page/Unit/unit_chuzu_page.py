@@ -132,7 +132,7 @@ class ChuzPage():
     #收回
     def chuzu_shouh(self):
         '''
-        收回
+        出租资产收回
         '''
         self.handle.switch_users("单位资产管理员")
         self.handle.click_two_level_menu("出租 (借)")

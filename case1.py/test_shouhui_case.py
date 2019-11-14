@@ -26,7 +26,7 @@ class ShouhCase(unittest.TestCase):
         self.driver.refresh()
         self.logger.info("收回")
         self.zl = make_date(self.driver)
-        self.zl.unit_suoyzc_dengz()
+        self.zl.unit_suoyzc_wdengz()
 
     def tearDown(self):
         for method_name, error in self._outcome.errors:
@@ -54,7 +54,6 @@ class ShouhCase(unittest.TestCase):
         self.assertTrue(success, "收回成功")
 
     #部门全部收回卡片
-    @unittest.skip("全部收回功能已删除")
     def test_bum_shouh_all(self):
         self.zl.unit_fenp.fenp("部门")
         self.zl.unit_shouy.receipt()
@@ -67,21 +66,20 @@ class ShouhCase(unittest.TestCase):
 
     #单位收回卡片
     def test_danw_shouh(self):
-        self.zl.unit_fp.fenp("使用人")
-        self.zl.unit_sh.receipt()
+        self.zl.unit_fenp.fenp("使用人")
+        self.zl.unit_shouy.receipt()
         self.driver.refresh()
         #检查点：单位收回卡片成功
         success = self.zl.unit_shouh.take_back()
         self.assertTrue(success, "收回成功")
 
     #单位全部收回卡片
-    @unittest.skip("全部收回功能已删除")
     def test_danw_shouh_all(self):
-        self.unit_fp.fenp("使用人")
-        self.unit_sh.receipt()
+        self.zl.unit_fenp.fenp("使用人")
+        self.unit_shouy.receipt()
         self.driver.refresh()
         #检查点：单位全部收回卡片成功
-        success = self.unit_zcsh.all_take_back()
+        success = self.zl.unit_shouh.all_take_back()
         self.assertTrue(success, "收回成功")
 
 
@@ -89,8 +87,8 @@ if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(ShouhCase('test_bum_shouh'))
-    suite.addTest(ShouhCase('test_bum_shouh_all'))
+    #suite.addTest(ShouhCase('test_bum_shouh'))
+    #suite.addTest(ShouhCase('test_bum_shouh_all'))
     suite.addTest(ShouhCase('test_danw_shouh'))
     suite.addTest(ShouhCase('test_danw_shouh_all'))
     runner = HTMLTestRunner.HTMLTestRunner(

@@ -40,8 +40,7 @@ class ZicshPage():
         self.handle.click_two_level_menu("资产收回")
         self.__switch_iframe_zicsh()
         time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
-        self.handle.click_element("资产收回", "收回")
+        self.handle.click_element("资产收回", "操作_收回")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
         if self.__get_zicsh_pass_message() == "收回成功":
@@ -57,13 +56,13 @@ class ZicshPage():
         self.handle.click_two_level_menu("资产收回")
         self.__switch_iframe_zicsh()
         time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
-        self.handle.click_element("资产收回", "全部收回")
+        self.handle.click_element("通用", "全选")
+        self.handle.click_element("资产收回", "收回")
         time.sleep(0.5)
         self.handle.click_element("通用", "确定")
         time.sleep(0.5)
-        self.handle.click_element("资产收回", "确定")
-        if self.__get_zicsh_pass_message() == "收回申请成功":
+        self.handle.click_element("资产收回", "全部收回确定")
+        if self.__get_zicsh_pass_message() == "收回成功":
             return True
         else:
             return False
@@ -72,10 +71,10 @@ class ZicshPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = ZicshPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/6666')
-    a.send_value('登录', "username", "ss")
-    a.send_value('登录', "password", "123")
+    driver.get('http://58.246.240.154:7878/zl/179333')
+    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "password", "123")
     time.sleep(1)
-    a.click_element('登录', 'login')
+    a.handle.click_element('登录', 'login')
     time.sleep(1)
-    print(a.take_back())
+    print(a.all_take_back())
