@@ -8,7 +8,8 @@ from xlutils.copy import copy
 class ExcelUtil(object):
     def __init__(self, excel_path=None, index=None):
         if excel_path == None:
-            excel_path = os.path.join(os.getcwd()) + "/config/" + "casedata.xlsx"
+            excel_path = os.path.join(
+                os.getcwd()) + "/config/" + "casedata.xlsx"
         if index == None:
             index = 0
         self.data = xlrd.open_workbook(excel_path)
@@ -51,4 +52,5 @@ class ExcelUtil(object):
         read_value = self.data
         write_data = copy(read_value)
         write_data.get_sheet(0).write(row, 7, value)
-        write_data.save(os.path.join(os.getcwd()) + "/config/" + "keyword.xlsx")
+        write_data.save(
+            os.path.join(os.getcwd()) + "/config/" + "keyword.xlsx")
