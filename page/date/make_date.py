@@ -16,6 +16,7 @@ from page.User import *
 class make_date():
     def __init__(self, driver):
         self.handle = BaseHandle(driver)
+        self.unit_chengzu = unit_chengzu_page.chengzu(driver)
         self.unit_chuzu = unit_chuzu_page.ChuzPage(driver)
         self.unit_dengz = unit_dengzgl_page.DengzglPage(driver)
         self.unit_touz = unit_duiwtz_page.DuiwtzPage(driver)
@@ -278,6 +279,26 @@ class make_date():
         '''
         self.unit_chuzu_05()
         self.unit_chuzu.chuzu_shouh()
+
+    def unit_chengzu_01(self):
+        '''
+        新增承租借-待承租借
+        '''
+        self.unit_chengzu.xinz()
+
+    def unit_chengzu_02(self):
+        '''
+        新增承租借-承租借中
+        '''
+        self.unit_chengzu_01()
+        self.unit_chengzu.jiaofu()
+
+    def unit_chengzu_03(self):
+        '''
+        新增承租借-承租借完成
+        '''
+        self.unit_chengzu_02()
+        self.unit_chengzu.tuih()
 
     def unit_shouy_01(self):
         '''
@@ -702,6 +723,16 @@ class make_date():
         if value == "处置":
             self.fin_hex.hex_dengz()  # 处置先核销
         self.fin_shouy.shouy_dengz()
+
+    def make_init_card(self):
+        # 未登帐，更正中、维修中、转移中、分配中、处置中、租借中、投资中、承租借卡片
+        self.unit_suoyzc_wdengz()
+        self.unit_weix_01()
+        self.unit.dep_zhuany_01()
+        self.unit_fenp_01()
+        self.unit_chuz_01()
+        self.unit_chuzu_01()
+        self.unit_chengzu_01()
 
 
 if __name__ == "__main__":

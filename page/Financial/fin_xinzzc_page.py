@@ -48,14 +48,14 @@ class XinzzcPage():
         财务登账
         '''
         self.handle.switch_users("财务制单人员")
-        zibh = self.__get_card_number()
         self.handle.refresh_f5()
         self.handle.click_first_class_menu("新增资产")
         self.__switch_iframe()
         self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("财务_新增资产", "登账")
         self.handle.switch_iframe1()
-        time.sleep(1)
+        zibh = self.handle.get_element("财务_新增资产", "资产编号_01").text
+        time.sleep(2)
         self.handle.click_element("财务_新增资产", "财务入账日期", 0)
         self.handle.click_element("通用", "今天")
         self.handle.send_value("财务_新增资产", "会计凭证号", 1000)
@@ -94,10 +94,10 @@ class XinzzcPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = XinzzcPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/179111')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     a.handle.send_value('登录', "username", "ss")
     a.handle.send_value('登录', "password", "123")
-    time.sleep(1)
+    time.sleep(2)
     a.handle.click_element('登录', 'login')
     driver.maximize_window()
     print(a.dengz())

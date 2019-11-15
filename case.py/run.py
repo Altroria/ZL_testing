@@ -9,6 +9,7 @@ class RunCase(unittest.TestCase):
         file_path = os.path.join(os.getcwd() + "/report/" + "all_case.html")
         f = open(file_path, 'wb')
         case_path = os.path.join(os.getcwd(), 'case')
+        print(case_path)
         suite = unittest.defaultTestLoader.discover(case_path, '*case.py')
         runner = HTMLTestRunner.HTMLTestRunner(
             stream=f, title="全量测试报告", verbosity=2)

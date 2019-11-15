@@ -41,7 +41,18 @@
   "case/test_010_chuzhi_case.py::ChuzhiCase::test_shiyr_faq_bum_ss_bum_bty",
   "case/test_010_chuzhi_case.py::ChuzhiCase::test_shiyr_faq_bum_ss_danw_ty",
   "case/test_011_chuzu_case.py::ChuzCase::test_chuz_danw_faq_danw_zhix",
-  "case1.py/test_fenp_case.py::FenpCase::test_bum_fp_bum_shouh",
-  "case1.py/test_fenp_case.py::FenpCase::test_danw_fp_bum_shouh",
-  "case1.py/test_fenp_case.py::FenpCase::test_danw_fp_shiyr_shouh"
+  "case1.py/test_chuzu_case.py::ChuzCase::test_chuz_danw_faq_danw_zhix",
+  "case1.py/test_fenpei_case.py::FenpCase::test_bum_fp_bum_shouh",
+  "case1.py/test_fenpei_case.py::FenpCase::test_danw_fp_bum_shouh",
+  "case1.py/test_fenpei_case.py::FenpCase::test_danw_fp_shiyr_shouh",
+  "case1.py/test_guihuan_case.py::GuihCase::test_bum_guih_danw_shouh",
+  "case1.py/test_guihuan_case.py::GuihCase::test_shiyr_guih_bum_shouh",
+  "case1.py/test_shouhui_case.py::ShouhCase::test_bum_shouh",
+  "case1.py/test_shouhui_case.py::ShouhCase::test_bum_shouh_all",
+  "case1.py/test_shouhui_case.py::ShouhCase::test_danw_shouh",
+  "case1.py/test_shouhui_case.py::ShouhCase::test_danw_shouh_all",
+  "case1.py/test_zhuanyi_case.py::ZhuanyCase::test_bum_zhuany_shiyr_shouh",
+  "case1.py/test_zhuanyi_case.py::ZhuanyCase::test_danw_zhuany_bum_shouh",
+  "case1.py/test_zhuanyi_case.py::ZhuanyCase::test_danw_zhuany_shiyr_shouh",
+  "case1.py/test_zhuanyi_case.py::ZhuanyCase::test_shiyr_zhuany_shiyr_shouh"
 ]
