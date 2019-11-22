@@ -72,7 +72,7 @@ class GuihCase(unittest.TestCase):
         self.unit_fp.fenp("部门")
         self.dep_sh.receipt()
         self.dep_gh.guih_pass()
-        success = self.unit_sh.receipt()
+        success = self.unit_sh.receipt("确认收货")
         self.assertTrue(success, "收货成功")
 
 

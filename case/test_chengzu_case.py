@@ -14,7 +14,7 @@ from page.login_page import LoginPage
 from page.date.make_date import make_date
 
 
-class FenpCase(unittest.TestCase):
+class chengzu(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.log = UserLog()
@@ -22,12 +22,10 @@ class FenpCase(unittest.TestCase):
         cls.driver = BrowserEngine().init_driver()
         LoginPage(cls.driver).cookie_login()
 
-    #前置
     def setUp(self):
         self.driver.refresh()
-        self.logger.info("分配")
+        self.logger.info("出租")
         self.zl = make_date(self.driver)
-        self.zl.unit_suoyzc_wdengz()
 
     def tearDown(self):
         for method_name, error in self._outcome.errors:
@@ -42,35 +40,39 @@ class FenpCase(unittest.TestCase):
         cls.log.close_handle()
         cls.driver.close()
 
-    #单位分配资产至部门
-    def test_danw_fp_bum_shouh(self):
-        self.zl.unit_fenp.fenp("部门")
-        #检测点：部门收货
-        success = self.zl.dep_shouy.receipt()
-        self.assertTrue(success, "收货成功")
+    #承租——续租
+    def test_chenz_xvzu_01(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.xvzu()
+        self.assertTrue(success, "续租成功")
 
-    #单位分配资产至使用人
-    def test_danw_fp_shiyr_shouh(self):
-        self.zl.unit_fenp.fenp("使用人")
-        #检测点：使用人收货
-        success = self.zl.user_shouy.receipt()
-        self.assertTrue(success, "收货成功")
+    #承租——退还
+    def test_chenz_tuihuan_01(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.tuih()
+        self.assertTrue(success, "退还成功")
+        #承租完成的再次续租
+        self.zl.handle.refresh_f5()
+        success = self.zl.unit_chengzu.zaicxz()
+        self.assertTrue(success, "续租成功")
 
-    #部门分配资产
-    def test_bum_fp_bum_shouh(self):
-        self.zl.dep_fenp.fenp("使用人")
-        #检测点：使用人收货
-        success = self.zl.user_shouy.receipt()
-        self.assertTrue(success, "收货成功")
+    #承租——批量退还
+    def test_chenz_tuihuan_02(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.pilth()
+        self.assertTrue(success, "退还成功")
 
 
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(FenpCase('test_danw_fp_bum_shouh'))
-    suite.addTest(FenpCase('test_danw_fp_shiyr_shouh'))
-    suite.addTest(FenpCase('test_bum_fp_bum_shouh'))
+    #suite.addTest(chengzu('test_chenz_xvzu_01'))
+    #suite.addTest(chengzu('test_chenz_tuihuan_01'))
+    suite.addTest(chengzu('test_chenz_tuihuan_02'))
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=f, title="全量测试报告", verbosity=2)
     runner.run(suite)

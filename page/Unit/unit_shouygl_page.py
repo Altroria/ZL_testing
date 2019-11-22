@@ -18,20 +18,16 @@ class ShouyglPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_shouygl")
 
+    @BaseHandle.functional_combination("单位资产管理员", "收益管理", index=[1])
     def shouy_ss(self):
         '''
         收益送财务
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_first_class_menu("收益管理")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("收益管理", "送财务登账")
         self.handle.click_element("通用", "确定")
-
 
 
 if __name__ == "__main__":

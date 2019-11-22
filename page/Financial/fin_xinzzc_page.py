@@ -18,14 +18,14 @@ class XinzzcPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_dengzgl")
 
     #获取登账卡片编号
     def __get_card_number(self):
         try:
             self.handle.click_first_class_menu("新增资产")
-            self.__switch_iframe()
+            self.switch_iframe()
             self.handle.click_element("财务_新增资产", "摘要", 0)
             time.sleep(1)
             self.handle.switch_iframe1()
@@ -43,19 +43,14 @@ class XinzzcPage():
             message_text = None
         return message_text
 
+    @BaseHandle.functional_combination("财务制单人员", "新增资产", "待登账", index=[1])
     def dengz(self):
         '''
         财务登账
         '''
-        self.handle.switch_users("财务制单人员")
-        self.handle.refresh_f5()
-        self.handle.click_first_class_menu("新增资产")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("财务_新增资产", "登账")
         self.handle.switch_iframe1()
-        zibh = self.handle.get_element("财务_新增资产", "资产编号_01").text
-        time.sleep(2)
+        time.sleep(1)
         self.handle.click_element("财务_新增资产", "财务入账日期", 0)
         self.handle.click_element("通用", "今天")
         self.handle.send_value("财务_新增资产", "会计凭证号", 1000)
@@ -63,27 +58,45 @@ class XinzzcPage():
         time.sleep(1)
         self.handle.click_element("财务_新增资产", "确认登账")
         self.handle.refresh_f5()
-        new_zibh = self.__get_card_number()
-        if new_zibh != zibh:
-            return True
-        else:
-            return False
 
+    @BaseHandle.functional_combination("财务制单人员", "新增资产", "待登账", index=[1])
     def tuih(self):
         '''
         财务登账退回
         '''
-        self.handle.switch_users("财务制单人员")
-        zibh = self.__get_card_number()
-        self.handle.refresh_f5()
-        self.handle.click_first_class_menu("新增资产")
-        self.handle.__switch_iframe()
         self.handle.click_element("财务_新增资产", "退回", 0)
         time.sleep(1)
         self.handle.click_element("通用", "确定")
         time.sleep(1)
         self.handle.click_element("财务_新增资产", "确定")
         self.handle.refresh_f5()
+
+    @BaseHandle.functional_combination("财务制单人员", "新增资产", "待登账", index=[1])
+    def dengz_success(self):
+        '''
+        财务登账成功
+        '''
+        self.handle.click_element("财务_新增资产", "登账")
+        self.handle.switch_iframe1()
+        time.sleep(2)
+        zibh = self.handle.get_element("财务_新增资产", "资产编号_01").text
+        self.handle.refresh_f5()
+        self.dengz()
+        new_zibh = self.__get_card_number()
+        if new_zibh != zibh:
+            return True
+        else:
+            return False
+
+    def tuih_success(self):
+        '''
+        财务登账退回成功
+        '''
+        self.handle.switch_users("财务制单人员")
+        zibh = self.__get_card_number()
+        self.handle.refresh_f5()
+        self.handle.click_first_class_menu("新增资产")
+        self.tuih()
         new_zibh = self.__get_card_number()
         if new_zibh != zibh:
             return True
@@ -100,4 +113,4 @@ if __name__ == "__main__":
     time.sleep(2)
     a.handle.click_element('登录', 'login')
     driver.maximize_window()
-    print(a.dengz())
+    print(a.tuih_success())

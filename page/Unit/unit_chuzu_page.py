@@ -14,12 +14,10 @@ from base.base_handle import BaseHandle
 
 class ChuzPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
-        #self.handle.switch_iframe("iframe", "iframe_chuzuj")
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_zuj")
 
     #获取提示
@@ -27,20 +25,18 @@ class ChuzPage():
         try:
             self.handle.switch_iframe()
             self.handle.wait_element('message', 'ty_message')
-            message_text = self.handle.get_element('message', 'ty_message').text
+            message_text = self.handle.get_element('message',
+                                                   'ty_message').text
         except:
             message_text = None
         return message_text
 
     #出租生成单据
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", index=[1])
     def chuzu_scdj(self):
         '''
         出租生成单据
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("出租", "生成单据")
         self.handle.wait_element("出租", "下一步")
         self.handle.click_element("出租", "下一步")
@@ -68,60 +64,43 @@ class ChuzPage():
         self.handle.click_element("通用", "确定")
 
     #送审
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待送审", index=[1])
     def chuzu_ss(self):
         '''
         送审
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("出租", "待送审")
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("出租", "送审")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
 
     #通过
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "审批中")
     def chuzu_tg(self):
         '''
         通过
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("出租", "审批中")
         time.sleep(1)
         self.handle.click_element("出租", "通过", 0)
         time.sleep(1)
         self.handle.click_element("通用", "确定")
 
     #执行
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "已审批")
     def chuzu_zhix(self):
         '''
         执行
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("出租", "已审批")
         self.handle.click_element("出租", "执行出租(借)")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
-        if self.__get_message() == "出租(借)成功":
-            return True
-        else:
-            return False
 
     #登记收益
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "出租(借)中")
     def chuzu_shouyi(self, value):
         '''
         登记收益
         value:暂存  送财务部门
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("出租", "出租(借)中")
         self.handle.click_element("出租", "登记收益", 0)
         time.sleep(1)
         self.handle.click_element("通用", "输入框", 0)
@@ -130,17 +109,30 @@ class ChuzPage():
         self.handle.click_element("出租", value)
 
     #收回
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "出租(借)中")
     def chuzu_shouh(self):
         '''
         出租资产收回
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("出租 (借)")
-        self.__switch_iframe()
-        self.handle.click_element("出租", "出租(借)中")
         self.handle.click_element("出租", "提前收回")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
+
+    def chuzu_zhix_success(self):
+        '''
+        执行
+        '''
+        self.chuzu_zhix()
+        if self.__get_message() == "出租(借)成功":
+            return True
+        else:
+            return False
+
+    def chuzu_shouh_success(self):
+        '''
+        出租资产收回成功
+        '''
+        self.chuzu_shouh()
         if self.__get_message() == "收回成功":
             return True
         else:

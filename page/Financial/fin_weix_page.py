@@ -14,16 +14,14 @@ from base.base_handle import BaseHandle
 
 class FinWeixPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
     def __switch_iframe(self):
-        #self.handle.switch_iframe("iframe", "iframe_zicxl")
         self.handle.switch_iframe("iframe", "iframe_weixgl")
 
     #获取提示信息
-    def __get_message(self):
+    def get_message(self):
         try:
             self.handle.switch_iframe()
             self.handle.wait_element('message', 'message')
@@ -32,15 +30,12 @@ class FinWeixPage():
             message_text = None
         return message_text
 
+    @BaseHandle.functional_combination("财务制单人员", "资产修理", index=[1])
     def weix_dengz(self, value):
         '''
         维修费用化登账
         value:资本化 or 费用化
         '''
-        self.handle.switch_users("财务制单人员")
-        self.handle.click_first_class_menu("资产修理")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("通用", "登账")
         self.handle.click_element("财务_资产修理", value)
         time.sleep(1)
@@ -52,6 +47,19 @@ class FinWeixPage():
         self.handle.send_value("通用", "输入框", jiaz, 4)
         time.sleep(1)
         self.handle.click_element("财务_资产修理", "登账", 1)
+        if value == "费用化" and self.__get_message() == "费用化登账成功":
+            return True
+        elif value == "资本化" and self.__get_message() == "资本化登账成功":
+            return True
+        else:
+            return False
+
+    def weix_dengz_success(self, value):
+        '''
+        维修费用化登账
+        value:资本化 or 费用化
+        '''
+        self.weix_dengz()
         if value == "费用化" and self.__get_message() == "费用化登账成功":
             return True
         elif value == "资本化" and self.__get_message() == "资本化登账成功":

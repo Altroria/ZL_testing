@@ -14,23 +14,19 @@ from base.base_handle import BaseHandle
 
 class UserShenllPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe_peizgl(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_peizgl")
 
     #增加申领--提交
+    @BaseHandle.functional_combination("使用人", "我要申领")
     def shenl_xinz(self, card_value):
         '''
         增加申领--提交
         card_value:分类明细
         '''
-        self.handle.switch_users("使用人")
-        self.handle.click_first_class_menu("我要申领")
-        self.__switch_iframe_peizgl()
-        time.sleep(0.5)
         self.handle.click_element("我要申领", "增加申领资产")
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
@@ -39,7 +35,7 @@ class UserShenllPage():
         self.handle.click_element("验收管理", "确定")
         time.sleep(2)
         self.handle.switch_iframe()
-        self.__switch_iframe_peizgl()
+        self.switch_iframe()
         time.sleep(1)
         self.handle.click_element("通用", "输入框", 6)
         time.sleep(1)
@@ -47,12 +43,8 @@ class UserShenllPage():
         self.handle.click_element("通用", "确定")
         time.sleep(1)
 
+    @BaseHandle.functional_combination("使用人", "我要申领", index=[1])
     def shenl_tj(self):
-        self.handle.switch_users("使用人")
-        self.handle.click_first_class_menu("我要申领")
-        self.__switch_iframe_peizgl()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("我要申领", "提交申领")
         self.handle.switch_iframe()
 

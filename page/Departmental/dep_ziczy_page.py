@@ -14,12 +14,10 @@ from base.base_handle import BaseHandle
 
 class DepZiczyPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
-        #self.handle.switch_iframe("iframe", "iframe_ziczy")
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_zhuany")
 
     #获取提示信息
@@ -32,17 +30,12 @@ class DepZiczyPage():
             message_text = None
         return message_text
 
+    @BaseHandle.functional_combination("部门资产管理员", "资产转移", index=[1])
     def zhuany(self, value):
         '''
         转移
         value:使用人、部门
         '''
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产转移")
-        self.__switch_iframe()
-        zicbh = self.handle.get_level_element("通用", "data_info", "通用", "资产编号", 0).text
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("资产转移", "办理业务")
         time.sleep(0.5)
         self.handle.click_element("资产转移", "添加接收方", 0)
@@ -57,6 +50,14 @@ class DepZiczyPage():
         time.sleep(1)
         self.handle.click_element("通用", "确定")
         time.sleep(1)
+
+    def zhuany_success(self, value):
+        '''
+        转移
+        value:使用人、部门
+        '''
+        zicbh = self.handle.get_level_element("通用", "data_info", "通用", "资产编号", 0).text
+        self.zhuany()
         element = self.handle.get_level_element("通用", "data_info", "通用", "资产编号", 0)
         if element == None:
             return True

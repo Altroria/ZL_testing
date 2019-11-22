@@ -53,11 +53,11 @@ class make_date():
         self.user_weix = user_weix_page.UserWeixPage(driver)
         self.user_yans = user_yans_page.UserYansPage(driver)
 
-    def unit_suoyzc_wdengz(self):
+    def unit_suoyzc_wdengz(self, value="1000", card_value='pc服务器'):
         '''
         单位资产管理员验收未登账卡片
         '''
-        self.unit_yans.add_card(card_value="pc服务器")
+        self.unit_yans.add_card(value, card_value)
         self.unit_yans.start_acceptance()
         self.unit_yans.yansgl_pass()
 
@@ -738,7 +738,7 @@ class make_date():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = make_date(driver)
-    driver.get('http://58.246.240.154:7878/zl/179111')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     driver.maximize_window()
     a.handle.send_value('登录', "username", "ss")
     a.handle.send_value('登录', "password", "123")
@@ -751,5 +751,5 @@ if __name__ == "__main__":
     while counter <= n:
         sum = sum + counter
         counter += 1
-        a.fin_shouyi_02("处置")
+        a.unit_chuz_02()
         a.handle.refresh_f5()

@@ -18,68 +18,39 @@ class DepZicfpPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_fenp")
-
-    #删除接收方
-    def __del(self):
-        self.handle.click_element("资产分配", "取消接收方")
-        time.sleep(0.5)
-        self.handle.click_element("通用", "确定")
-
-    #添加接收方
-    def __add(self):
-        self.handle.click_element("资产分配", "添加接收方")
-        time.sleep(1)
-        self.handle.click_element("资产分配", "勾选添加接收方")
-        self.handle.click_element("通用", "确定")
 
     #获取提示信息
     def __get_message(self):
         try:
             self.handle.switch_iframe()
             self.handle.wait_element('message', 'ty_message')
-            message_text = self.handle.get_element('message', 'ty_message').text
+            message_text = self.handle.get_element('message',
+                                                   'ty_message').text
         except:
             message_text = None
         return message_text
 
+    #删除接收方
+    def del_per(self):
+        self.handle.click_element("资产分配", "取消接收方")
+        time.sleep(0.5)
+        self.handle.click_element("通用", "确定")
+
     #添加接收方
-    def add_personnel(self):
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
-        self.__add()
-        if self.__get_message() == "添加成功":
-            return True
-        else:
-            return False
+    def add_per(self):
+        self.handle.click_element("资产分配", "添加接收方")
+        time.sleep(1)
+        self.handle.click_element("资产分配", "勾选添加接收方")
+        self.handle.click_element("通用", "确定")
 
-    #取消接受方
-    def del_personnel(self):
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
-        if self.handle.get_element("资产分配", "新增部门人员") != None:
-            self.__add()
-            time.sleep(1)
-        self.__del()
-        if self.__get_message() == "删除成功":
-            return True
-        else:
-            return False
-
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", index=[1])
     def fenp(self, value):
         '''
         分配
         value:使用人、部门
         '''
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("资产分配", "添加接收方")
         time.sleep(1)
         if value == "使用人":
@@ -90,12 +61,24 @@ class DepZicfpPage():
         time.sleep(0.5)
         self.handle.click_element("通用", "确定")
 
+    #取消分配
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", "分配中", index=[1])
+    def quxfp(self):
+        self.handle.click_element("资产分配", "取消分配")
+        time.sleep(0.5)
+        self.handle.click_element("通用", "确定")
+
+    #取消分配成功
+    def quxfp_success(self):
+        self.quxfp()
+        if self.handle.get_zicfp_message() == "操作成功":
+            return True
+        else:
+            return False
+
     #无接收方取消接收方
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", index=[1])
     def del_personnel_error(self):
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         if self.handle.get_element("资产分配", "新增部门人员") == None:
             self.__del()
         self.__del()
@@ -105,11 +88,8 @@ class DepZicfpPage():
             return False
 
     #无接收方分配
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", index=[1])
     def distribution_error(self):
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
         if self.handle.get_element("资产分配", "新增部门人员") == None:
             self.__del()
         self.handle.click_element("资产分配", "分配")
@@ -119,18 +99,20 @@ class DepZicfpPage():
         else:
             return False
 
-    #取消分配
-    def quxfp(self):
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_two_level_menu("资产分配")
-        self.__switch_iframe()
-        self.handle.click_element("资产分配", "分配中")
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
-        self.handle.click_element("资产分配", "取消分配")
-        time.sleep(0.5)
-        self.handle.click_element("通用", "确定")
-        if self.handle.get_zicfp_message() == "操作成功":
+    #添加接收方成功
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", index=[1])
+    def add_personnel_success(self):
+        self.add_per()
+        if self.__get_message() == "添加成功":
+            return True
+        else:
+            return False
+
+    #取消接受方成功
+    @BaseHandle.functional_combination("部门资产管理员", "资产分配", index=[1])
+    def del_personnel_success(self):
+        self.del_per()
+        if self.__get_message() == "删除成功":
             return True
         else:
             return False

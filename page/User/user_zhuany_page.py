@@ -14,25 +14,19 @@ from base.base_handle import BaseHandle
 
 class UserZhuanyPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
     def __switch_iframe_ziczy(self):
-        #self.handle.switch_iframe("iframe", "iframe_ziczy")
         self.handle.switch_iframe("iframe", "iframe_zhuany")
 
     #转移
+    @BaseHandle.functional_combination("使用人", "资产转移", index=[1])
     def zhuany(self, value):
         '''
         转移
         value:使用人、部门
         '''
-        self.handle.switch_users("使用人")
-        self.handle.click_two_level_menu("资产转移")
-        self.__switch_iframe_ziczy()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("资产转移", "办理业务")
         time.sleep(0.5)
         self.handle.click_element("资产转移", "添加接收方", 0)

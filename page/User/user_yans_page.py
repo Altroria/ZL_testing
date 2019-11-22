@@ -21,15 +21,11 @@ class UserYansPage():
     def __switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_yansgl")
 
+    @BaseHandle.functional_combination("使用人", "验收资产", index=[1])
     def yans_tj(self):
         '''
         验收提交
         '''
-        self.handle.switch_users("使用人")
-        self.handle.click_first_class_menu("验收资产")
-        self.__switch_iframe()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("验收资产", "提交")
 
 

@@ -18,7 +18,7 @@ class DepZicczPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_ziccz")
 
     #获取提示信息
@@ -26,27 +26,35 @@ class DepZicczPage():
         try:
             self.handle.switch_iframe()
             self.handle.wait_element('message', 'message_shenhcg')
-            message_text = self.handle.get_element('message', 'message_shenhcg').text
+            message_text = self.handle.get_element('message',
+                                                   'message_shenhcg').text
         except:
             message_text = None
         return message_text
 
+    @BaseHandle.functional_combination("部门资产管理员", "资产处置", index=[1])
     def chuz_ss(self, value):
         '''
         处置审核
         value:退回、送审、同意、不同意
         '''
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_first_class_menu("资产处置")
-        self.__switch_iframe()
-        self.handle.click_element("通用", "勾选卡片", 0)
-        time.sleep(1)
         self.handle.click_element("资产处置", "审核")
         time.sleep(1)
         self.handle.switch_iframe1()
         self.handle.click_element("通用", value)
         time.sleep(1)
         self.handle.click_element("通用", "保存")
+        if self.__get_message() == "审核成功！":
+            return True
+        else:
+            return False
+
+    def chuz_ss_success(self, value):
+        '''
+        处置审核
+        value:退回、送审、同意、不同意
+        '''
+        self.chuz_ss()
         if self.__get_message() == "审核成功！":
             return True
         else:

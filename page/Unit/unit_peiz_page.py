@@ -14,11 +14,10 @@ from base.base_handle import BaseHandle
 
 class PeizlPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_peizgl")
 
     #获取提示信息
@@ -26,26 +25,32 @@ class PeizlPage():
         try:
             time.sleep(1)
             self.handle.switch_iframe()
-            message_text = self.handle.get_element('message', 'ty_message').text
+            message_text = self.handle.get_element('message',
+                                                   'ty_message').text
         except:
             message_text = None
         return message_text
 
+    #单位审核
+    @BaseHandle.functional_combination("单位资产管理员", "配置管理", index=[1])
     def peiz_ss(self, value):
         '''
         单位审核
         value:退回、同意、不同意
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_first_class_menu("配置管理")
-        self.__switch_iframe()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("配置管理", "审核")
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
         self.handle.click_element("通用", value)
         self.handle.click_element("配置管理", "保存")
+
+    #单位审核成功
+    def peiz_ss_success(self, value):
+        '''
+        单位审核
+        value:退回、同意、不同意
+        '''
+        self.peiz_ss()
         if self.__get_message() == "审核成功！":
             return True
         else:

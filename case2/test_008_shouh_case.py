@@ -62,7 +62,7 @@ class ShouhCase(unittest.TestCase):
     #部门收回卡片
     def test_bum_shouh(self):
         self.unit_fp.fenp("部门")
-        self.unit_sh.receipt()
+        self.unit_sh.receipt("确认收货")
         self.dep_fp.fenp("使用人")
         self.dep_sh.receipt()
         self.driver.refresh()
@@ -73,7 +73,7 @@ class ShouhCase(unittest.TestCase):
     @unittest.skip("全部收回功能已删除")
     def test_bum_shouh_all(self):
         self.unit_fp.fenp("部门")
-        self.unit_sh.receipt()
+        self.unit_sh.receipt("确认收货")
         self.dep_fp.fenp("使用人")
         self.dep_sh.receipt()
         self.driver.refresh()
@@ -83,7 +83,7 @@ class ShouhCase(unittest.TestCase):
     #单位收回卡片
     def test_danw_shouh(self):
         self.unit_fp.fenp("使用人")
-        self.unit_sh.receipt()
+        self.unit_sh.receipt("确认收货")
         self.driver.refresh()
         success = self.unit_zcsh.take_back()
         self.assertTrue(success, "收回成功")
@@ -92,7 +92,7 @@ class ShouhCase(unittest.TestCase):
     @unittest.skip("全部收回功能已删除")
     def test_danw_shouh_all(self):
         self.unit_fp.fenp("使用人")
-        self.unit_sh.receipt()
+        self.unit_sh.receipt("确认收货")
         self.driver.refresh()
         success = self.unit_zcsh.all_take_back()
         self.assertTrue(success, "收回成功")

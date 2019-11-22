@@ -14,23 +14,17 @@ from base.base_handle import BaseHandle
 
 class UserGuihPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe_guih(self):
-        #self.handle.switch_iframe("iframe", "iframe_zicgh")
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_guih")
 
+    @BaseHandle.functional_combination("使用人", "资产归还", index=[1])
     def guih_pass(self):
         '''
         归还
         '''
-        self.handle.switch_users("使用人")
-        self.handle.click_two_level_menu("资产归还")
-        self.__switch_iframe_guih()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("资产归还", "归还")
         self.handle.click_element("通用", "确定")
 

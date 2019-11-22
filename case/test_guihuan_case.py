@@ -14,7 +14,7 @@ from page.login_page import LoginPage
 from page.date.make_date import make_date
 
 
-class ChuzCase(unittest.TestCase):
+class GuihCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.log = UserLog()
@@ -24,9 +24,9 @@ class ChuzCase(unittest.TestCase):
 
     def setUp(self):
         self.driver.refresh()
-        self.logger.info("出租")
+        self.logger.info("归还")
         self.zl = make_date(self.driver)
-        self.zl.unit_suoyzc_dengz()
+        self.zl.unit_suoyzc_wdengz()
 
     def tearDown(self):
         for method_name, error in self._outcome.errors:
@@ -41,22 +41,31 @@ class ChuzCase(unittest.TestCase):
         cls.log.close_handle()
         cls.driver.close()
 
-    #单位出租
-    def test_chuz_danw_faq_danw_zhix(self):
-        self.zl.unit_shouy.apply_business("申请出租")
-        self.zl.unit_chuzu.chuzu_scdj()
-        self.zl.unit_chuzu.chuzu_zhix()
-        self.zl.unit_chuzu.chuzu_shouyi("送财务部门")
-        self.zl.unit_chuzu.chuzu_shouh()
-        success = self.zl.fin_shouy.shouy_dengz()
-        self.assertTrue(success, "收益登账成功")
+    #使用人归还-部门收货
+    def test_shiyr_guih_bum_shouh(self):
+        self.zl.unit_fenp.fenp("使用人")
+        self.zl.user_shouy.receipt()
+        self.zl.user_guih.guih_pass()
+        #检查点：部门收货归还的卡片
+        success = self.zl.dep_shouy.receipt()
+        self.assertTrue(success, "收货成功")
+
+    #部门归还-单位收货
+    def test_bum_guih_danw_shouh(self):
+        self.zl.unit_fenp.fenp("部门")
+        self.zl.dep_shouy.receipt()
+        self.zl.dep_guih.guih_pass()
+        #检查点：单位收货归还的卡片
+        success = self.zl.unit_shouy.receipt()
+        self.assertTrue(success, "收货成功")
 
 
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(ChuzCase('test_chuz_danw_faq_danw_zhix'))
+    suite.addTest(GuihCase('test_shiyr_guih_bum_shouh'))
+    #suite.addTest(GuihCase('test_bum_guih_danw_shouh'))
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=f, title="全量测试报告", verbosity=2)
     runner.run(suite)

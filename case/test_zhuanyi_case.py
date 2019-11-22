@@ -76,6 +76,7 @@ class ZhuanyCase(unittest.TestCase):
         self.zl.user_shouy.apply_business("申请转移")
         self.zl.user_zhuany.zhuany("使用人")
         #检查点：使用人收货使用人转移的资产
+        self.zl.handle.refresh_f5()
         success = self.zl.user_shouy.receipt()
         self.assertTrue(success, "收货成功")
 
@@ -84,9 +85,9 @@ if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(ZhuanyCase('test_danw_zhuany_bum_shouh'))
-    suite.addTest(ZhuanyCase('test_danw_zhuany_shiyr_shouh'))
-    suite.addTest(ZhuanyCase('test_bum_zhuany_shiyr_shouh'))
+    #suite.addTest(ZhuanyCase('test_danw_zhuany_bum_shouh'))
+    #suite.addTest(ZhuanyCase('test_danw_zhuany_shiyr_shouh'))
+    #suite.addTest(ZhuanyCase('test_bum_zhuany_shiyr_shouh'))
     suite.addTest(ZhuanyCase('test_shiyr_zhuany_shiyr_shouh'))
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=f, title="全量测试报告", verbosity=2)

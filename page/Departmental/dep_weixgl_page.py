@@ -18,7 +18,7 @@ class DepWeixglPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_weixgl")
 
     #获取提示信息
@@ -32,16 +32,12 @@ class DepWeixglPage():
             message_text = None
         return message_text
 
+    @BaseHandle.functional_combination("部门资产管理员", "维修管理", index=[1])
     def weix_ss(self, value):
         '''
         维修审核
         value:退回、送审、同意、不同意
         '''
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_first_class_menu("维修管理")
-        self.__switch_iframe()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("维修管理", "审核")
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
@@ -49,21 +45,13 @@ class DepWeixglPage():
         self.handle.click_element("通用", value)
         time.sleep(0.5)
         self.handle.click_element("维修管理", "保存")
-        if self.__get_message() == "审核成功！":
-            return True
-        else:
-            return False
 
+    @BaseHandle.functional_combination("部门资产管理员", "维修管理", "已审核")
     def weix_yans(self, key):
         '''
         维修验收
         key:维修费用
         '''
-        self.handle.switch_users("部门资产管理员")
-        self.handle.click_first_class_menu("维修管理")
-        self.__switch_iframe()
-        time.sleep(0.5)
-        self.handle.click_element("通用", "已审核")
         self.handle.click_element("维修管理", "维修验收")
         self.handle.click_element("维修管理", "选择维修商", 1)
         time.sleep(2)
@@ -71,6 +59,17 @@ class DepWeixglPage():
         self.handle.click_element("维修管理", "选择维修商确定")
         self.handle.send_value("通用", "输入框", key, 2)
         self.handle.click_element("通用", "确定")
+
+    def weix_ss_success(self, value):
+        '''
+        维修审核
+        value:退回、送审、同意、不同意
+        '''
+        self.weix_ss(value)
+        if self.__get_message() == "审核成功！":
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":

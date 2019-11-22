@@ -14,28 +14,28 @@ from base.base_handle import BaseHandle
 
 class ShouyiPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_shouygl")
 
+    @BaseHandle.functional_combination("财务制单人员", "收益管理", index=[1])
     def shouy_dengz(self):
         '''
         收益登账
         '''
-        self.handle.switch_users("财务制单人员")
-        self.handle.click_first_class_menu("收益管理")
-        self.__switch_iframe()
-        sbdh = self.handle.get_elements("财务_收益管理", "申报单号")[0].text
-        self.handle.click_element("通用", "勾选卡片", 0)
+
         self.handle.click_element("通用", "登账")
         self.handle.click_element("财务_收益管理", "财务入账日期")
         self.handle.click_element("财务_收益管理", "今天")
         self.handle.send_value("财务_收益管理", "会计凭证号", 1000)
         self.handle.click_element("财务_收益管理", "登账")
         time.sleep(3)
+
+    def shouy_dengz_success(self):
+        sbdh = self.handle.get_elements("财务_收益管理", "申报单号")[0].text
+        self.shouy_dengz()
         try:
             new_sbdh = self.handle.get_elements("财务_收益管理", "申报单号")[0].text
             if new_sbdh != sbdh:

@@ -17,7 +17,7 @@ class chengzu():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_chengzj")
 
     #获取提示
@@ -40,8 +40,9 @@ class chengzu():
             het_message = None
         return het_message
 
+    #承租借 填写卡片资料
     def __chengzj_card(self, het_value=111):
-        #承租借 填写卡片资料
+        time.sleep(1)
         self.handle.click_element("承租", "日期", 0)  # 取得日期
         self.handle.click_element("通用", "今天")
         self.handle.send_value("通用", "输入框", het_value, 15)  # 合同编号
@@ -61,13 +62,11 @@ class chengzu():
         self.handle.click_element("承租", "日期")  # 合同签订日期
         self.handle.click_element("通用", "今天")
 
+    @BaseHandle.functional_combination("单位资产管理员", "承租 (借)", "待承租 (借)")
     def xinz(self):
         '''
         新增承租资产
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
         self.handle.click_element("承租", "增加承租(借)资产")
         self.handle.click_element("承租", "新增承租资产")
         self.handle.switch_iframe()
@@ -80,52 +79,37 @@ class chengzu():
         self.__chengzj_card()
         self.handle.click_element("承租", "保存")
 
+    @BaseHandle.functional_combination(
+        "单位资产管理员", "承租 (借)", "待承租 (借)", index=[1])
     def jiaofu(self):
         '''
         交付完成
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
-        time.sleep(1)
-        self.handle.click_element("通用", "勾选卡片", 0)
         self.handle.click_element("承租", "交付完成")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
         time.sleep(1)
         self.handle.click_element("通用", "否")
 
+    @BaseHandle.functional_combination("单位资产管理员", "承租 (借)", "承租 (借)中")
     def xvzu(self):
         '''
         续租
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
-        time.sleep(1)
-        self.handle.click_element("承租", "承租 (借)中")
         self.handle.click_element("承租", "操作_申请续租")
         self.handle.switch_iframe("iframe", "iframe1")
         self.__xvzu_card()
         self.handle.switch_iframe()
-        self.__switch_iframe()
+        self.switch_iframe()
         self.handle.click_element("通用", "保存")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
-        if self.__get_message() == "续租成功":
-            return True
-        else:
-            return False
 
+    @BaseHandle.functional_combination("单位资产管理员", "承租 (借)", "承租 (借)中")
     def tuih(self):
         '''
         退还
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
-        time.sleep(1)
-        self.handle.click_element("承租", "承租 (借)中")
         self.handle.click_element("承租", "操作_退还")
         self.handle.click_element("通用", "确定")
         if self.__get_message() == "退还成功":
@@ -133,16 +117,12 @@ class chengzu():
         else:
             return False
 
+    @BaseHandle.functional_combination(
+        "单位资产管理员", "承租 (借)", "承租 (借)中", index=[1, 2])
     def pilth(self):
         '''
         批量退还
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
-        time.sleep(1)
-        self.handle.click_element("承租", "承租 (借)中")
-        self.handle.click_element("通用", "勾选卡片")  # 勾选第一张
         self.handle.click_element("承租", "批量退还")
         self.handle.click_element("通用", "确定")
         if self.__get_message() == "退还成功":
@@ -150,15 +130,11 @@ class chengzu():
         else:
             return False
 
+    @BaseHandle.functional_combination("单位资产管理员", "承租 (借)", "承租 (借)完成")
     def zaicxz(self):
         '''
-        承接完成, 再次续租
+        承借完成, 再次续租
         '''
-        self.handle.switch_users("单位资产管理员")
-        self.handle.click_two_level_menu("承租 (借)")
-        self.__switch_iframe()
-        time.sleep(1)
-        self.handle.click_element("承租", "承租 (借)完成")
         self.handle.click_element("承租", "操作_再次续租")
         self.handle.click_element("通用", "确定")
         time.sleep(1)
@@ -167,15 +143,51 @@ class chengzu():
         self.__chengzj_card(het_value=222)
         self.handle.click_element("承租", "保存")
         time.sleep(1)
+
+    def xvzu_success(self):
+        '''
+        续租成功
+        '''
+        self.xvzu()
+        if self.__get_message() == "续租成功":
+            return True
+        else:
+            return False
+
+    def tuih_success(self):
+        '''
+        退还成功
+        '''
+        self.tuih()
+        if self.__get_message() == "退还成功":
+            return True
+        else:
+            return False
+
+    def pilth_success(self):
+        '''
+        批量退还
+        '''
+        self.pilth()
+        if self.__get_message() == "退还成功":
+            return True
+        else:
+            return False
+
+    def zaicxz_success(self):
+        '''
+        承借完成, 再次续租
+        '''
+        self.zaicxz()
+        time.sleep(1)
         self.handle.switch_iframe()
-        self.__switch_iframe()
+        self.switch_iframe()
         self.handle.click_element("承租", "待承租 (借)")
         self.handle.switch_iframe()
-        self.__switch_iframe()
+        self.switch_iframe()
         self.handle.click_element("承租", "详细信息")
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe2")
-
         if self.__get_hetbh() == "222":
             return True
         else:
@@ -193,4 +205,5 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(2)
-    print(a.zaicxz())
+    print(1111111111111)
+    print(a.zaicxz_success())
