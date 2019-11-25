@@ -36,8 +36,6 @@ class ZiczyPage():
         转移
         value:使用人、部门
         '''
-        self.handle.click_element("通用", "勾选卡片", 0)
-        time.sleep(0.5)
         self.handle.click_element("资产转移", "办理业务")
         time.sleep(0.5)
         self.handle.click_element("资产转移", "添加接收方")

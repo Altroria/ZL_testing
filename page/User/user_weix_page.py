@@ -17,7 +17,7 @@ class UserWeixPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_weixgl")
 
     @BaseHandle.functional_combination("使用人", "我要报修", index=[1])
@@ -28,6 +28,7 @@ class UserWeixPage():
         '''
         self.handle.click_element("我要报修", value)
         self.handle.click_element("通用", "确定")
+        time.sleep(3)
 
     @BaseHandle.functional_combination("使用人", "我要报修", "已审核")
     def weix_yans(self, key):
@@ -48,12 +49,12 @@ class UserWeixPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = UserWeixPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/6666')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     time.sleep(1)
-    a.send_value('登录', "username", "ss")
-    a.send_value('登录', "password", "123")
+    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "password", "123")
     driver.maximize_window()
     time.sleep(1)
-    a.click_element('登录', 'login')
+    a.handle.click_element('登录', 'login')
     time.sleep(5)
-    a.weix_yans(100)
+    a.weix_ss("提交申请")

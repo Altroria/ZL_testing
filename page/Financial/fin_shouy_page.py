@@ -33,6 +33,7 @@ class ShouyiPage():
         self.handle.click_element("财务_收益管理", "登账")
         time.sleep(3)
 
+    @BaseHandle.functional_combination("财务制单人员", "收益管理")
     def shouy_dengz_success(self):
         sbdh = self.handle.get_elements("财务_收益管理", "申报单号")[0].text
         self.shouy_dengz()
@@ -49,9 +50,9 @@ class ShouyiPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = ShouyiPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/179001')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     a.handle.send_value('登录', "username", "ss")
     a.handle.send_value('登录', "password", "123")
     time.sleep(1)
     a.handle.click_element('登录', 'login')
-    print(a.shouy_dengz())
+    print(a.shouy_dengz_success())

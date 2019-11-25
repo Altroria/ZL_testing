@@ -14,7 +14,6 @@ from base.base_handle import BaseHandle
 
 class DepPeizlPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
@@ -62,9 +61,10 @@ class DepPeizlPage():
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
         self.handle.click_element("通用", value)
+        time.sleep(1)
         self.handle.click_element("配置管理", "保存")
 
-    def assert_peiz_ss_success(self, value="同意"):
+    def peiz_ss_success(self, value="同意"):
         '''
         部门审核
         value:退回、送审、同意、不同意
@@ -88,4 +88,5 @@ if __name__ == "__main__":
     a.handle.click_element('登录', 'login')
     time.sleep(2)
     a.peiz_tj()
-    print(a.peiz_ss())
+    driver.refresh()
+    print(a.peiz_ss_success("退回"))

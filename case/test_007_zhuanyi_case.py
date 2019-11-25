@@ -46,7 +46,7 @@ class ZhuanyCase(unittest.TestCase):
         self.zl.unit_shouy.apply_business("申请转移")
         self.zl.unit_zhuany.zhuany("部门")
         #检查点：部门收货单位转移的资产
-        success = self.zl.dep_shouy.receipt()
+        success = self.zl.dep_shouy.receipt_success()
         self.assertTrue(success, "收货成功")
 
     #单位转移资产至使用人-使用人收货
@@ -54,30 +54,30 @@ class ZhuanyCase(unittest.TestCase):
         self.zl.unit_shouy.apply_business("申请转移")
         self.zl.unit_zhuany.zhuany("使用人")
         #检查点：使用人收货单位转移的资产
-        success = self.zl.user_shouy.receipt()
+        success = self.zl.user_shouy.receipt_success("确认收货")
         self.assertTrue(success, "收货成功")
 
     #部门转移资产-使用人收货
     def test_bum_zhuany_shiyr_shouh(self):
         self.zl.unit_shouy.apply_business("申请转移")
         self.zl.unit_zhuany.zhuany("部门")
-        self.zl.dep_shouy.receipt()
+        self.zl.dep_shouy.receipt("确认收货")
         self.zl.dep_shouy.apply_business("申请转移")
         self.zl.dep_zhuany.zhuany("使用人")
         #检查点：使用人收货部门转移的资产
-        success = self.zl.user_shouy.receipt()
+        success = self.zl.user_shouy.receipt_success()
         self.assertTrue(success, "收货成功")
 
     #使用人转移资产-使用人收货
     def test_shiyr_zhuany_shiyr_shouh(self):
         self.zl.unit_shouy.apply_business("申请转移")
         self.zl.unit_zhuany.zhuany("使用人")
-        self.zl.user_shouy.receipt()
+        self.zl.user_shouy.receipt("确认收货")
         self.zl.user_shouy.apply_business("申请转移")
         self.zl.user_zhuany.zhuany("使用人")
         #检查点：使用人收货使用人转移的资产
         self.zl.handle.refresh_f5()
-        success = self.zl.user_shouy.receipt()
+        success = self.zl.user_shouy.receipt_success()
         self.assertTrue(success, "收货成功")
 
 

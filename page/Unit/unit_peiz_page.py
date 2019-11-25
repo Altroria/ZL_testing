@@ -42,6 +42,7 @@ class PeizlPage():
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
         self.handle.click_element("通用", value)
+        time.sleep(1)
         self.handle.click_element("配置管理", "保存")
 
     #单位审核成功
@@ -50,7 +51,7 @@ class PeizlPage():
         单位审核
         value:退回、同意、不同意
         '''
-        self.peiz_ss()
+        self.peiz_ss(value)
         if self.__get_message() == "审核成功！":
             return True
         else:
@@ -60,12 +61,12 @@ class PeizlPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = PeizlPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/6666')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     time.sleep(1)
-    a.send_value('登录', "username", "ss")
-    a.send_value('登录', "password", "123")
+    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "password", "123")
     driver.maximize_window()
     time.sleep(1)
-    a.click_element('登录', 'login')
+    a.handle.click_element('登录', 'login')
     time.sleep(2)
-    a.peiz_sh_ty()
+    print(a.peiz_ss_success("退回"))

@@ -75,7 +75,7 @@ class DepYansglPage():
             self.handle.switch_iframe("iframe", "iframe1")
         self.__send_card_data(value)
 
-    @BaseHandle.functional_combination("部门资产管理员", "验收资产", index=1)
+    @BaseHandle.functional_combination("部门资产管理员", "验收资产", index=[1])
     def start_acceptance(self, value=None):
         '''
         开始验收
@@ -86,7 +86,7 @@ class DepYansglPage():
         self.handle.click_element("验收管理", "开始验收")
         time.sleep(1)
 
-    @BaseHandle.functional_combination("部门资产管理员", "验收资产", "验收中", index=1)
+    @BaseHandle.functional_combination("部门资产管理员", "验收资产", "验收中", index=[1])
     def yansgl_pass(self):
         '''
         验收通过
@@ -144,4 +144,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    a.add_card()
+    a.start_acceptance()

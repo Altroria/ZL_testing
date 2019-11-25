@@ -14,7 +14,7 @@ from page.login_page import LoginPage
 from page.date.make_date import make_date
 
 
-class ChuzCase(unittest.TestCase):
+class DengzCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.log = UserLog()
@@ -24,10 +24,10 @@ class ChuzCase(unittest.TestCase):
 
     def setUp(self):
         self.driver.refresh()
-        self.logger.info("出租")
+        self.logger.info("登账")
         self.zl = make_date(self.driver)
-        self.zl.unit_suoyzc_dengz()
-        self.zl.handle.refresh_f5()
+        #前置：单位资产管理员新增未登账卡片
+        self.zl.unit_suoyzc_wdengz()
 
     def tearDown(self):
         for method_name, error in self._outcome.errors:
@@ -42,23 +42,29 @@ class ChuzCase(unittest.TestCase):
         cls.log.close_handle()
         cls.driver.close()
 
-    #单位出租
-    def test_chuzu_danw_faq_danw_zhix(self):
-        self.zl.unit_shouy.apply_business("申请出租")
-        self.zl.unit_chuzu.chuzu_scdj()  # 生成单据
-        self.zl.unit_chuzu.chuzu_ss()  # 送审
-        self.zl.unit_chuzu.chuzu_zhix()  # 执行
-        self.zl.unit_chuzu.chuzu_shouyi("送财务部门")
-        self.zl.unit_chuzu.chuzu_shouh()
-        success = self.zl.fin_shouy.shouy_dengz()
-        self.assertTrue(success, "收益登账成功")
+    #送财务登账-不填发票号-财务登账
+    def test_danw_dengz_butfp_caiw_dengz(self):
+        self.driver.refresh()
+        self.zl.unit_dengz.songcw()
+        self.driver.refresh()
+        success = self.zl.fin_dengz.dengz_success()
+        self.assertTrue(success, "登账成功")
+
+    #送财务登账-填发票号-财务退回
+    def test_danw_dengz_tianfp_caiw_tui(self):
+        self.driver.refresh()
+        self.zl.unit_dengz.songcw(1000)
+        self.driver.refresh()
+        success = self.zl.fin_dengz.tuih_success()
+        self.assertTrue(success, "退回成功")
 
 
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(ChuzCase('test_chuzu_danw_faq_danw_zhix'))
+    suite.addTest(DengzCase('test_danw_dengz_butfp_caiw_dengz'))
+    #suite.addTest(DengzCase('test_danw_dengz_tianfp_caiw_tui'))
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=f, title="全量测试报告", verbosity=2)
     runner.run(suite)

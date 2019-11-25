@@ -124,7 +124,7 @@ class ShouyPage():
             return False
 
     #确认收货成功
-    def receipt_success(self, value):
+    def receipt_success(self):
         '''
         收货
         value:确认收货、取消收货、全部收货

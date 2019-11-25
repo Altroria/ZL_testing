@@ -179,7 +179,7 @@ class BaseHandle(SeleniumDriver):
             else:
                 self.click_two_level_menu(value)
         elif role_value == "单位资产管理员":
-            if value == "首页" or value == "配置管理" or value == "资产盘点" or value == "资产处置" or value == "收益管理":
+            if value == "首页" or value == "配置管理" or value == "维修管理" or value == "资产盘点" or value == "资产处置" or value == "收益管理":
                 self.click_first_class_menu(value)
             else:
                 self.click_two_level_menu(value)

@@ -55,13 +55,13 @@ class DepShouyPage():
         确认收货
         value: 确认收货、取消收货、全部收货
         '''
-        self.handle.click_element("待收货", "确认收货")
+        self.handle.click_element("待收货", value)
         time.sleep(0.5)
         if value != "全部收货":
             self.handle.click_element("通用", "确定")
 
     def receipt_success(self):
-        self.receipt()
+        self.receipt("确认收货")
         if self.__get_message() == "收货成功":
             return True
         else:
@@ -91,4 +91,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    print(a.apply_business("申请转移"))
+    print(a.receipt_success())

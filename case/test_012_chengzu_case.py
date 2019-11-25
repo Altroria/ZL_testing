@@ -14,7 +14,7 @@ from page.login_page import LoginPage
 from page.date.make_date import make_date
 
 
-class GuihCase(unittest.TestCase):
+class chengzu(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.log = UserLog()
@@ -24,9 +24,8 @@ class GuihCase(unittest.TestCase):
 
     def setUp(self):
         self.driver.refresh()
-        self.logger.info("归还")
+        self.logger.info("出租")
         self.zl = make_date(self.driver)
-        self.zl.unit_suoyzc_wdengz()
 
     def tearDown(self):
         for method_name, error in self._outcome.errors:
@@ -41,31 +40,39 @@ class GuihCase(unittest.TestCase):
         cls.log.close_handle()
         cls.driver.close()
 
-    #使用人归还-部门收货
-    def test_shiyr_guih_bum_shouh(self):
-        self.zl.unit_fenp.fenp("使用人")
-        self.zl.user_shouy.receipt()
-        self.zl.user_guih.guih_pass()
-        #检查点：部门收货归还的卡片
-        success = self.zl.dep_shouy.receipt()
-        self.assertTrue(success, "收货成功")
+    #承租——续租
+    def test_chenz_xvzu_01(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.xvzu_success()
+        self.assertTrue(success, "续租成功")
 
-    #部门归还-单位收货
-    def test_bum_guih_danw_shouh(self):
-        self.zl.unit_fenp.fenp("部门")
-        self.zl.dep_shouy.receipt()
-        self.zl.dep_guih.guih_pass()
-        #检查点：单位收货归还的卡片
-        success = self.zl.unit_shouy.receipt()
-        self.assertTrue(success, "收货成功")
+    #承租——退还
+    def test_chenz_tuihuan_01(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.tuih_success()
+        self.assertTrue(success, "退还成功")
+        #承租完成的再次续租
+        self.zl.handle.refresh_f5()
+        success = self.zl.unit_chengzu.zaicxz_success()
+        self.assertTrue(success, "续租成功")
+
+    #承租——批量退还
+    def test_chenz_tuihuan_02(self):
+        self.zl.unit_chengzu.xinz()
+        self.zl.unit_chengzu.jiaofu()
+        success = self.zl.unit_chengzu.pilth()
+        self.assertTrue(success, "退还成功")
 
 
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")
     f = open(file_path, 'wb')
     suite = unittest.TestSuite()
-    suite.addTest(GuihCase('test_shiyr_guih_bum_shouh'))
-    #suite.addTest(GuihCase('test_bum_guih_danw_shouh'))
+    #suite.addTest(chengzu('test_chenz_xvzu_01'))
+    #suite.addTest(chengzu('test_chenz_tuihuan_01'))
+    suite.addTest(chengzu('test_chenz_tuihuan_02'))
     runner = HTMLTestRunner.HTMLTestRunner(
         stream=f, title="全量测试报告", verbosity=2)
     runner.run(suite)

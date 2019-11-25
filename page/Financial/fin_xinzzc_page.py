@@ -48,6 +48,7 @@ class XinzzcPage():
         '''
         财务登账
         '''
+        time.sleep(2)
         self.handle.click_element("财务_新增资产", "登账")
         self.handle.switch_iframe1()
         time.sleep(1)
@@ -80,8 +81,10 @@ class XinzzcPage():
         self.handle.switch_iframe1()
         time.sleep(2)
         zibh = self.handle.get_element("财务_新增资产", "资产编号_01").text
+
         self.handle.refresh_f5()
         self.dengz()
+        self.handle.refresh_f5()
         new_zibh = self.__get_card_number()
         if new_zibh != zibh:
             return True
@@ -113,4 +116,4 @@ if __name__ == "__main__":
     time.sleep(2)
     a.handle.click_element('登录', 'login')
     driver.maximize_window()
-    print(a.tuih_success())
+    a.dengz_success()
