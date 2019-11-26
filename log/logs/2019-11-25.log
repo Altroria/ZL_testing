@@ -146,3 +146,27 @@
 2019-11-25 16:23:57,174 test_009_weix_case.py--> setUp 20: INFO ----->维修
 2019-11-25 16:25:51,054 test_009_weix_case.py--> setUp 20: INFO ----->维修
 2019-11-25 16:27:19,675 test_009_weix_case.py--> setUp 20: INFO ----->维修
+2019-11-25 17:02:45,140 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-25 17:02:48,517 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-25 17:02:49,576 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-25 17:02:50,822 test_001_login_case.py--> setUp 20: INFO ----->this is chrome
+2019-11-25 17:29:58,744 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:31:00,699 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:31:59,603 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:32:45,216 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:33:08,644 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:34:40,430 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:37:41,056 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:38:52,092 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:44:09,670 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:47:17,773 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:48:19,204 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:48:49,135 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 17:50:57,035 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:00:33,194 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:06:07,198 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:07:11,037 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:08:34,205 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:11:32,544 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:13:03,699 test_01.py--> setup 20: INFO ----->this is chrome
+2019-11-25 18:13:29,250 test_01.py--> setup 20: INFO ----->this is chrome

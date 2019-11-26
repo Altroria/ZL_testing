@@ -13,6 +13,7 @@ pywin32 = "==225"
 xlrd = "==1.2.0"
 xlwt = "==1.3.0"
 pytest = "*"
+pytest-html = "*"
 
 [requires]
 python_version = "3.7"

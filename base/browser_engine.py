@@ -31,7 +31,7 @@ class BrowserEngine(object):
             #option.add_argument('--no-sandbox')  # 取消沙盒模式
             #option.add_argument('--start-maximized')  # 启动就最大化
             self._driver = webdriver.Chrome(
-                executable_path=self.CHROME_DRIVER, chrome_options=option)
+                executable_path=self.CHROME_DRIVER, options=option)
         elif self._browser_type.lower() == 'firefox':
             self._driver = webdriver.Firefox(
                 executable_path=self.FIREFOX_DRIVER)

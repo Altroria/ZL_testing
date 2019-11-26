@@ -1,0 +1,19 @@
+{
+  "case_pytest/test.py::test_02": true,
+  "case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh": true,
+  "case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh_all": true,
+  "case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh": true,
+  "case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh_all": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_bum_ss_danw_ty": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_danw_faq_danw_ty": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_bty": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ss_danw_bty": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ss_danw_ty": true,
+  "case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ty": true,
+  "case_pytest/test_01.py::TestLoginCase::test_login_name_error": true,
+  "case_pytest/test_01.py::TestLoginCase::test_login_name_none_error": true,
+  "case_pytest/test_01.py::TestLoginCase::test_login_password_error": true,
+  "case_pytest/test_01.py::TestLoginCase::test_login_password_none_error": true,
+  "case_pytest/test_01.py::TestLoginCase::test_login_success": true,
+  "case_pytest/test_011_chuzu_case.py::TestChuzCase::test_chuzu_danw_faq_danw_zhix": true
+}

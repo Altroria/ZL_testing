@@ -64,7 +64,7 @@ class UserShouyPage():
         value:确认收货、取消收货、全部收货
         '''
         self.receipt("确认收货")
-        if self.get_message() == "收货成功":
+        if self.__get_message() == "收货成功":
             return True
         else:
             return False

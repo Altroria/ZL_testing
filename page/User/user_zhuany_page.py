@@ -17,7 +17,7 @@ class UserZhuanyPage():
         self.handle = BaseHandle(driver)
 
     #切换iframe
-    def __switch_iframe_ziczy(self):
+    def switch_iframe(self):
         self.handle.switch_iframe("iframe", "iframe_zhuany")
 
     #转移
@@ -45,10 +45,10 @@ class UserZhuanyPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = UserZhuanyPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/6666')
-    a.send_value('登录', "username", "ss")
-    a.send_value('登录', "password", "123")
+    driver.get('http://58.246.240.154:7878/zl/179333')
+    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "password", "123")
     time.sleep(1)
-    a.click_element('登录', 'login')
+    a.handle.click_element('登录', 'login')
     time.sleep(1)
-    a.zhuany("部门")
+    a.zhuany("使用人")
