@@ -60,6 +60,6 @@ class TestFenpCase():
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
-        "-s", "-v", "-q", "--html=report_shengl.html",
+        "-s", "-v", "-q", "--html=report_fenpei.html",
         case_path + "\\test_005_fenpei_case.py::TestFenpCase"
     ])

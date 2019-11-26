@@ -65,6 +65,6 @@ class TestYansglCase():
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
-        "-s", "-v", "-q", "--html=report_shengl.html",
+        "-s", "-v", "-q", "--html=report_yans.html",
         case_path + "\\test_003_yans_case.py::TestYansglCase"
     ])

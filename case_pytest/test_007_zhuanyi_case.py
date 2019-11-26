@@ -75,6 +75,6 @@ class TestZhuanyCase():
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
-        "-s", "-v", "-q", "--html=report_shengl.html",
+        "-s", "-v", "-q", "--html=report_zhuanyi.html",
         case_path + "\\test_007_zhuanyi_case.py::TestZhuanyCase::test_bum_zhuany_shiyr_shouh"
     ])

@@ -55,6 +55,6 @@ class TestDengzCase():
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
-        "-s", "-v", "-q", "--html=report_shengl.html",
+        "-s", "-v", "-q", "--html=report_dengz.html",
         case_path + "\\test_004_dengz_case.py::TestDengzCase::test_danw_dengz_butfp_caiw_dengz"
     ])

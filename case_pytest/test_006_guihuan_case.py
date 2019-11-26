@@ -55,6 +55,6 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
 
     pytest.main([
-        "-s", "-v", "-q", "--html=report_shengl.html",
+        "-s", "-v", "-q", "--html=report_guihuan.html",
         case_path + "\\test_006_guihuan_case.py::TestGuihCase"
     ])
