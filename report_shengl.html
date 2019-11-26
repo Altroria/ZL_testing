@@ -241,7 +241,7 @@ function filter_table(elem) {
 }
 </script>
     <h1>report_shengl.html</h1>
-    <p>Report generated on 26-Nov-2019 at 14:12:51 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.0.0</p>
+    <p>Report generated on 26-Nov-2019 at 15:10:39 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.0.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -260,8 +260,8 @@ function filter_table(elem) {
         <td>Python</td>
         <td>3.7.2</td></tr></table>
     <h2>Summary</h2>
-    <p>4 tests ran in 326.28 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">4 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>3 tests ran in 126.10 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">3 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -272,39 +272,30 @@ function filter_table(elem) {
           <th>Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="failed results-table-row">
+      <tbody class="passed results-table-row">
         <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh</td>
-          <td class="col-duration">37.67</td>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_012_chengzu_case.py::Testchengzu::test_chenz_xvzu_01</td>
+          <td class="col-duration">32.30</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log">self = &lt;test_008_shouhui_case.TestShouhCase object at 0x042FFC90&gt;<br/><br/>    def test_bum_shouh(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 单位分配给使用人<br/>        self.zl.dep_shouy.receipt(&quot;确认收货&quot;)  # 部门收货<br/>        self.driver.refresh()<br/>        #检测点：部门收回卡片成功<br/>        success = self.zl.dep_shouh.take_back_success()<br/>&gt;       assert success == True<br/><span class="error">E       assert False == True</span><br/><br/>case_pytest\test_008_shouhui_case.py:42: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:24 收回<br/></div></td></tr></tbody>
-      <tbody class="failed results-table-row">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_012_chengzu_case.py:24 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
         <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh_all</td>
-          <td class="col-duration">46.15</td>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_012_chengzu_case.py::Testchengzu::test_chenz_tuihuan_01</td>
+          <td class="col-duration">51.34</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log">self = &lt;test_008_shouhui_case.TestShouhCase object at 0x04D19250&gt;<br/><br/>    def test_bum_shouh_all(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 单位分配给使用人<br/>        self.zl.dep_shouy.receipt(&quot;确认收货&quot;)  # 部门收货<br/>        self.driver.refresh()<br/>        #检查点：部门全部收回卡片成功<br/>        success = self.zl.dep_shouh.all_take_back_success()<br/>&gt;       assert success == True<br/><span class="error">E       assert False == True</span><br/><br/>case_pytest\test_008_shouhui_case.py:51: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:24 收回<br/></div></td></tr></tbody>
-      <tbody class="failed results-table-row">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_012_chengzu_case.py:24 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
         <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh</td>
-          <td class="col-duration">36.79</td>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_012_chengzu_case.py::Testchengzu::test_chenz_tuihuan_02</td>
+          <td class="col-duration">31.97</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log">self = &lt;test_008_shouhui_case.TestShouhCase object at 0x04DCE2F0&gt;<br/><br/>    def test_danw_shouh(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)<br/>        self.zl.unit_shouy.receipt(&quot;确认收货&quot;)<br/>        self.driver.refresh()<br/>        #检查点：单位收回卡片成功<br/>        success = self.zl.unit_shouh.take_back_success()<br/>&gt;       assert success == True<br/><span class="error">E       assert False == True</span><br/><br/>case_pytest\test_008_shouhui_case.py:60: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:24 收回<br/></div></td></tr></tbody>
-      <tbody class="failed results-table-row">
-        <tr>
-          <td class="col-result">Failed</td>
-          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh_all</td>
-          <td class="col-duration">34.95</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log">self = &lt;test_008_shouhui_case.TestShouhCase object at 0x00DA10D0&gt;<br/><br/>    def test_danw_shouh_all(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 分配至使用人<br/>        self.zl.user_shouy.receipt(&quot;确认收货&quot;)  # 使用人收货<br/>        self.driver.refresh()<br/>        #检查点：单位全部收回卡片成功<br/>        success = self.zl.unit_shouh.all_take_back_success()  # 单位收回<br/>&gt;       assert success == True<br/><span class="error">E       assert False == True</span><br/><br/>case_pytest\test_008_shouhui_case.py:69: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:24 收回<br/></div></td></tr></tbody></table></body></html>
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_012_chengzu_case.py:24 出租<br/></div></td></tr></tbody></table></body></html>

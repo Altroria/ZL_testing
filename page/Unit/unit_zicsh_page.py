@@ -24,7 +24,7 @@ class ZicshPage():
     def __get_message(self):
         try:
             self.handle.switch_iframe()
-            time.sleep(0.5)
+            self.handle.wait_element('message', 'message')
             message_text = self.handle.get_element('message', 'message').text
         except:
             message_text = None
@@ -57,7 +57,10 @@ class ZicshPage():
     #收回成功
     def take_back_success(self):
         self.take_back()
-        if self.__get_message() == "收回成功":
+        self.handle.switch_iframe()
+        self.handle.wait_element('message', '收回成功')
+        message_text = self.handle.get_element('message', '收回成功').text
+        if message_text == "收回成功":
             return True
         else:
             return False

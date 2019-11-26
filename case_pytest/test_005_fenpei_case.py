@@ -59,18 +59,6 @@ class TestFenpCase():
 
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
-    '''
-    pytest.main([
-        "-s", "-v", "-q",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_th",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_ty",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_bty",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_ss_danw_th",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_ss_danw_ty",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_shiyr_sl_bum_ss_danw_bty",
-        case_path + "\\test_002_shenl_case.py::TestFenpCase::test_bum_sl_danw_ty"
-    ])
-    '''
     pytest.main([
         "-s", "-v", "-q", "--html=report_shengl.html",
         case_path + "\\test_005_fenpei_case.py::TestFenpCase"

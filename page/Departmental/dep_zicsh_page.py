@@ -30,16 +30,6 @@ class DepZicshPage():
             message_text = None
         return message_text
 
-    def __get_message_01(self):
-        try:
-            self.handle.switch_iframe()
-            self.handle.wait_element('message', 'ty_message')
-            message_text = self.handle.get_element('message',
-                                                   'ty_message').text
-        except:
-            message_text = None
-        return message_text
-
     @BaseHandle.functional_combination("部门资产管理员", "资产收回")
     def take_back(self):
         '''
@@ -67,17 +57,12 @@ class DepZicshPage():
         '''
         self.take_back()
         self.handle.switch_iframe()
-        #self.handle.wait_element('message', '收回成功')
+        self.handle.wait_element('message', '收回成功')
         message_text = self.handle.get_element('message', '收回成功').text
-
-        print(message_text)
-        return message_text
-        '''
-        if self.__get_message_01() == "收回成功":
+        if message_text == "收回成功":
             return True
         else:
             return False
-        '''
 
     def all_take_back_success(self):
         '''
@@ -100,3 +85,5 @@ if __name__ == "__main__":
     a.handle.click_element('登录', 'login')
     time.sleep(1)
     print(a.take_back_success())
+    time.sleep(5)
+    driver.close()
