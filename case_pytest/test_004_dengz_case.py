@@ -40,8 +40,9 @@ class TestDengzCase():
     def test_danw_dengz_butfp_caiw_dengz(self):
         self.driver.refresh()
         self.zl.unit_dengz.songcw()
-        time.sleep(2)
+        time.sleep(1)
         self.driver.refresh()
+        time.sleep(1)
         success = self.zl.fin_dengz.dengz_success()
         assert success == True
 

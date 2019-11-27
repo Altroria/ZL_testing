@@ -27,7 +27,7 @@ class BrowserEngine(object):
     def init_driver(self):
         if self._browser_type.lower() == 'chrome':
             option = webdriver.ChromeOptions()
-            option.add_argument('--headless')  # 后台执行
+            #option.add_argument('--headless')  # 后台执行
             #option.add_argument('--no-sandbox')  # 取消沙盒模式
             #option.add_argument('--start-maximized')  # 启动就最大化
             self._driver = webdriver.Chrome(

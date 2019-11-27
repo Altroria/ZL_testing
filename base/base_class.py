@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+#from selenium.webdriver.common.keys import Keys
 
 
 class SeleniumDriver(object):
@@ -175,6 +176,8 @@ class SeleniumDriver(object):
                 element = self.driver.find_element_by_class_name(value)
             elif by == 'link_text':
                 element = self.driver.find_element_by_link_text(value)
+            elif by == 'p_link_text':
+                element = self.driver.find_element_by_partial_link_text(value)
             elif by == 'xpath':
                 element = self.driver.find_element_by_xpath(value)
             else:
@@ -202,6 +205,10 @@ class SeleniumDriver(object):
                 elements = self.driver.find_elements_by_css_selector(value)
             elif by == 'class':
                 elements = self.driver.find_elements_by_class_name(value)
+            elif by == 'link_text':
+                elements = self.driver.find_element_by_link_text(value)
+            elif by == 'p_link_text':
+                elements = self.driver.find_element_by_partial_link_text(value)
             else:
                 elements = self.driver.find_elements_by_xpath(value)
 
@@ -242,6 +249,11 @@ class SeleniumDriver(object):
                     node_value)
             elif node_by == 'class':
                 node_element = element.find_elements_by_class_name(node_value)
+            elif by == 'link_text':
+                node_by = self.driver.find_element_by_link_text(node_value)
+            elif by == 'p_link_text':
+                node_by = self.driver.find_element_by_partial_link_text(
+                    node_value)
             else:
                 node_element = element.find_elements_by_xpath(node_value)
         except:
@@ -451,6 +463,7 @@ class SeleniumDriver(object):
         '''
         强制刷新
         '''
+        #self.driver.find_element_by_id("kw").send_keys(Keys.F5)
         #ActionChains(self.driver).key_down(Keys.CONTROL).send_keys(Keys.F5).key_up(Keys.CONTROL).perform()
         self.driver.refresh()
 
