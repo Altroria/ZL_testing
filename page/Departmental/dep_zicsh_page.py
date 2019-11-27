@@ -24,8 +24,8 @@ class DepZicshPage():
     def __get_message(self):
         try:
             self.handle.switch_iframe()
-            self.handle.wait_element('message', 'message')
-            message_text = self.handle.get_element('message', 'message').text
+            self.handle.wait_element('message', '收回成功')
+            message_text = self.handle.get_element('message', '收回成功').text
         except:
             message_text = None
         return message_text
@@ -56,10 +56,7 @@ class DepZicshPage():
         收回
         '''
         self.take_back()
-        self.handle.switch_iframe()
-        self.handle.wait_element('message', '收回成功')
-        message_text = self.handle.get_element('message', '收回成功').text
-        if message_text == "收回成功":
+        if self.__get_message() == "收回成功":
             return True
         else:
             return False
@@ -84,6 +81,6 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    print(a.take_back_success())
+    print(a.all_take_back_success())
     time.sleep(5)
     driver.close()

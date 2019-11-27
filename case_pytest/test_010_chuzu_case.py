@@ -1,6 +1,7 @@
 #coding=utf-8
 import sys
 import os
+import time
 import pytest
 sys.path.append(os.path.join(os.getcwd()))
 #初始driver
@@ -31,6 +32,7 @@ class TestChuzCase():
 
     def teardown_class(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #单位出租
@@ -49,5 +51,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_chuzu.html",
-        case_path + "\\test_011_chuzu_case.py::TestChuzCase"
+        case_path + "\\test_010_chuzu_case.py::TestChuzCase"
     ])

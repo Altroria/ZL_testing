@@ -33,12 +33,14 @@ class TestDengzCase():
 
     def tearDownClass(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #送财务登账-不填发票号-财务登账
     def test_danw_dengz_butfp_caiw_dengz(self):
         self.driver.refresh()
         self.zl.unit_dengz.songcw()
+        time.sleep(2)
         self.driver.refresh()
         success = self.zl.fin_dengz.dengz_success()
         assert success == True
@@ -47,6 +49,7 @@ class TestDengzCase():
     def test_danw_dengz_tianfp_caiw_tui(self):
         self.driver.refresh()
         self.zl.unit_dengz.songcw(1000)
+        time.sleep(2)
         self.driver.refresh()
         success = self.zl.fin_dengz.tuih_success()
         assert success == True
@@ -56,5 +59,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_dengz.html",
-        case_path + "\\test_004_dengz_case.py::TestDengzCase::test_danw_dengz_butfp_caiw_dengz"
+        case_path + "\\test_004_dengz_case.py::TestDengzCase"
     ])

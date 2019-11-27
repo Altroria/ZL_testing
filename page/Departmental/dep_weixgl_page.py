@@ -75,7 +75,7 @@ class DepWeixglPage():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = DepWeixglPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/179001')
+    driver.get('http://58.246.240.154:7878/zl/179333')
     time.sleep(1)
     a.handle.send_value('登录', "username", "ss")
     a.handle.send_value('登录', "password", "123")
@@ -83,4 +83,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(5)
-    print(a.weix_ss("同意"))
+    print(a.weix_ss_success("同意"))

@@ -1,6 +1,7 @@
 #coding=utf-8
 import sys
 import os
+import time
 import pytest
 sys.path.append(os.path.join(os.getcwd()))
 #初始driver
@@ -30,6 +31,7 @@ class TestZhuanyCase():
 
     def teardown_class(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #单位转移资产至部门-部门收货

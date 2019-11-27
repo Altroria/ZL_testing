@@ -146,7 +146,7 @@ class make_date():
         单位资产管理员新增资产分配--分配完成
         '''
         self.unit_fenp_02()
-        self.unit_shouy.receipt()
+        self.unit_shouy.receipt("确认收货")
 
     def unit_shouhui_01(self):
         '''
@@ -180,7 +180,7 @@ class make_date():
         新增资产转移--转移中
         '''
         self.unit_zhuany_02()
-        self.unit_shouy.receipt()
+        self.unit_shouy.receipt("确认收货")
 
     def unit_weix_01(self):
         '''
@@ -329,7 +329,7 @@ class make_date():
         '''
         self.unit_suoyzc_wdengz()
         self.unit_fenp.fenp("使用人")
-        self.user_shouy.receipt()
+        self.user_shouy.receipt("确认收货")
 
     def user_suoyzc_dengz(self):
         '''
@@ -337,7 +337,7 @@ class make_date():
         '''
         self.unit_suoyzc_dengz()
         self.unit_fenp.fenp("使用人")
-        self.user_shouy.receipt()
+        self.user_shouy.receipt("确认收货")
 
     def user_shenl_01(self):
         '''
@@ -406,7 +406,7 @@ class make_date():
         使用人资产归还--归还完成界面添加数据
         '''
         self.user_guih_02()
-        self.dep_shouy.receipt()
+        self.dep_shouy.receipt("确认收货")
 
     def user_zhuany_01(self):
         '''
@@ -427,7 +427,7 @@ class make_date():
         使用人资产转移--转移完成界面添加数据
         '''
         self.user_zhuany_02()
-        self.dep_shouy.receipt()
+        self.dep_shouy.receipt("确认收货")
 
     def user_chuz_01(self):
         '''
@@ -477,7 +477,7 @@ class make_date():
         self.unit_suoyzc_dengz()
         self.handle.refresh_f5()
         self.unit_fenp.fenp("部门")
-        self.dep_shouy.receipt()
+        self.dep_shouy.receipt("确认收货")
 
     def dep_peiz_01(self):
         '''
@@ -542,7 +542,7 @@ class make_date():
         部门资产管理员资产分配--分配完成页面添加数据
         '''
         self.dep_fenp_02()
-        self.user_shouy.receipt()
+        self.user_shouy.receipt("确认收货")
 
     def dep_guih_01(self):
         '''
@@ -562,7 +562,7 @@ class make_date():
         部门资产管理员资产归还--归还完成页面添加数据
         '''
         self.dep_guih_02()
-        self.unit_shouy.receipt()
+        self.unit_shouy.receipt("确认收货")
 
     def dep_shouh_01(self):
         '''
@@ -596,7 +596,7 @@ class make_date():
         部门资产管理员资产转移--转移完成页面添加数据
         '''
         self.dep_zhuany_02()
-        self.user_shouy.receipt()
+        self.user_shouy.receipt("确认收货")
 
     def dep_weix_01(self):
         '''
@@ -751,5 +751,5 @@ if __name__ == "__main__":
     while counter <= n:
         sum = sum + counter
         counter += 1
-        a.unit_chuz_02()
+        a.dep_chuz_01()
         a.handle.refresh_f5()

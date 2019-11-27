@@ -101,4 +101,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    print(a.receipt())
+    print(a.apply_business("申请报修"))

@@ -1,6 +1,7 @@
 #coding=utf-8
 import sys
 import os
+import time
 import pytest
 sys.path.append(os.path.join(os.getcwd()))
 #初始driver
@@ -29,12 +30,14 @@ class TestShenlCase():
 
     def teardown_class(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #使用人申领-部门退回
     def test_shiyr_sl_bum_th(self):
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
+        self.driver.refresh()
         success = self.zl.dep_peiz.peiz_ss_success("退回")
         assert success == True
 
@@ -96,5 +99,5 @@ if __name__ == "__main__":
         "-v",
         "-q",
         "--html=report_shengl.html",
-        case_path + "\\test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_th"
+        case_path + "\\test_002_shenl_case.py::TestShenlCase"
     ])

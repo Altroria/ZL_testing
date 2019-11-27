@@ -1,6 +1,7 @@
 #coding=utf-8
 import sys
 import os
+import time
 import pytest
 sys.path.append(os.path.join(os.getcwd()))
 #初始driver
@@ -31,6 +32,7 @@ class TestWeixCase():
 
     def teardown_class(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #使用人申请维修-部门同意-费用化登账
@@ -38,6 +40,7 @@ class TestWeixCase():
         self.zl.unit_fenp.fenp("使用人")  # 分配至使用人
         self.zl.user_shouy.receipt("确认收货")  # 使用人收货
         self.zl.user_shouy.apply_business("申请报修")  # 使用人申请报修
+        self.driver.refresh()
         self.zl.user_weix.weix_ss("提交申请")  # 使用人提交报修单
         success = self.zl.dep_weix.weix_ss_success("同意")  # 部门同意
         assert success == True
@@ -52,6 +55,7 @@ class TestWeixCase():
         self.zl.unit_fenp.fenp("使用人")  # 分配至使用人
         self.zl.user_shouy.receipt("确认收货")  # 使用人收货
         self.zl.user_shouy.apply_business("申请报修")  # 使用人申请报修
+        self.driver.refresh()
         self.zl.user_weix.weix_ss("提交申请")  # 使用人提交报修单
         self.driver.refresh()
         success = self.zl.dep_weix.weix_ss_success("不同意")  # 部门不同意
@@ -62,6 +66,7 @@ class TestWeixCase():
         self.zl.unit_fenp.fenp("使用人")  # 分配至使用人
         self.zl.user_shouy.receipt("确认收货")  # 使用人收货
         self.zl.user_shouy.apply_business("申请报修")  # 使用人申请报修
+        self.driver.refresh()
         self.zl.user_weix.weix_ss("提交申请")  # 使用人提交报修单
         self.zl.dep_weix.weix_ss("送审")  # 部门送审
         self.driver.refresh()
@@ -77,6 +82,7 @@ class TestWeixCase():
         self.zl.unit_fenp.fenp("使用人")  # 分配至使用人
         self.zl.user_shouy.receipt("确认收货")  # 使用人收货
         self.zl.user_shouy.apply_business("申请报修")  # 使用人申请报修
+        self.driver.refresh()
         self.zl.user_weix.weix_ss("提交申请")  # 使用人提交报修单
         self.zl.dep_weix.weix_ss("送审")  # 部门送审
         self.driver.refresh()

@@ -61,7 +61,7 @@ class DepPeizlPage():
         self.handle.switch_iframe()
         self.handle.switch_iframe("iframe", "iframe1")
         self.handle.click_element("通用", value)
-        time.sleep(1)
+        time.sleep(2)
         self.handle.click_element("配置管理", "保存")
 
     def peiz_ss_success(self, value="同意"):
@@ -87,6 +87,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(2)
-    a.peiz_tj()
-    driver.refresh()
     print(a.peiz_ss_success("退回"))

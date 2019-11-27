@@ -1,6 +1,7 @@
 #coding=utf-8
 import sys
 import os
+import time
 import pytest
 sys.path.append(os.path.join(os.getcwd()))
 #初始driver
@@ -29,6 +30,7 @@ class TestYansglCase():
 
     def teardown_class(self):
         self.log.close_handle()
+        time.sleep(2)
         self.driver.close()
 
     #部门新增资产
