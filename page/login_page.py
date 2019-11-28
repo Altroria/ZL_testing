@@ -49,7 +49,7 @@ class LoginPage(BaseHandle):
     #获取提示信息
     def get_prompt_message(self):
         try:
-            time.sleep(0.5)
+            time.sleep(1)
             message_text = self.get_element('error', 'login_error').text
         except:
             message_text = None

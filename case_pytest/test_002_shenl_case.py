@@ -37,6 +37,7 @@ class TestShenlCase():
     def test_shiyr_sl_bum_th(self):
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
+        time.sleep(3)
         self.driver.refresh()
         success = self.zl.dep_peiz.peiz_ss_success("退回")
         assert success == True
@@ -45,6 +46,8 @@ class TestShenlCase():
     def test_shiyr_sl_bum_ty(self):
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
+        time.sleep(3)
+        self.driver.refresh()
         success = self.zl.dep_peiz.peiz_ss_success("同意")
         assert success == True
 
@@ -52,6 +55,8 @@ class TestShenlCase():
     def test_shiyr_sl_bum_bty(self):
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
+        time.sleep(3)
+        self.driver.refresh()
         success = self.zl.dep_peiz.peiz_ss_success("同意")
         assert success == True
 
@@ -60,6 +65,7 @@ class TestShenlCase():
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
         self.zl.dep_peiz.peiz_ss("送审")
+        time.sleep(3)
         self.driver.refresh()
         success = self.zl.unit_peiz.peiz_ss_success("退回")
         assert success == True
@@ -69,6 +75,7 @@ class TestShenlCase():
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
         self.zl.dep_peiz.peiz_ss("送审")
+        time.sleep(3)
         self.driver.refresh()
         success = self.zl.unit_peiz.peiz_ss_success("同意")
         assert success == True
@@ -78,6 +85,7 @@ class TestShenlCase():
         self.zl.user_shenl.shenl_xinz("PC服务器")
         self.zl.user_shenl.shenl_tj()
         self.zl.dep_peiz.peiz_ss("送审")
+        time.sleep(3)
         self.driver.refresh()
         success = self.zl.unit_peiz.peiz_ss_success("不同意")
         assert success == True
@@ -85,8 +93,10 @@ class TestShenlCase():
     #部门申领-单位同意
     def test_bum_sl_danw_ty(self):
         self.zl.dep_peiz.peiz_tj("PC服务器")
+        time.sleep(3)
         self.driver.refresh()
         self.zl.dep_peiz.peiz_ss("送审")
+        time.sleep(3)
         self.driver.refresh()
         success = self.zl.unit_peiz.peiz_ss_success("同意")
         assert success == True

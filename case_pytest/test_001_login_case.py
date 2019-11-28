@@ -66,7 +66,3 @@ if __name__ == "__main__":
         "-s", "-v", "-q",
         "C:\\ZL_testing\\case_pytest\\test_001_login_case.py::TestLoginCase"
     ])
-    pytest.main([
-        "-s", "-v", "-q", "--lf",
-        "C:\\ZL_testing\\case_pytest\\test_001_login_case.py::TestLoginCase::test_login_name_error"
-    ])

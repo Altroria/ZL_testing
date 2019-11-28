@@ -23,10 +23,9 @@ class DepPeizlPage():
     #获取提示信息
     def __get_message(self):
         try:
-            time.sleep(1)
             self.handle.switch_iframe()
-            message_text = self.handle.get_element('message',
-                                                   'ty_message').text
+            self.handle.wait_element('message', 'message_shenhcg')
+            message_text = self.handle.get_element('message', 'message_shenhcg').text
         except:
             message_text = None
         return message_text
@@ -87,4 +86,5 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(2)
-    print(a.peiz_ss_success("退回"))
+    print(a.peiz_ss_success("送审"))
+    driver.close()

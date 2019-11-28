@@ -37,6 +37,7 @@ class TestYansglCase():
     def test_bum_add_new_card(self):
         self.zl.dep_yans.add_card(value="1000", card_value="PC服务器")
         self.zl.dep_yans.start_acceptance()
+        self.driver.refresh()
         success = self.zl.dep_yans.yansgl_pass_success()
         assert success == True
 
@@ -44,6 +45,7 @@ class TestYansglCase():
     def test_bum_add_card(self):
         self.zl.dep_yans.add_card(value="1000")
         self.zl.dep_yans.start_acceptance()
+        self.driver.refresh()
         success = self.zl.dep_yans.yansgl_pass_success()
         assert success == True
 
@@ -68,5 +70,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_yans.html",
-        case_path + "\\test_003_yans_case.py::TestYansglCase"
+        case_path + "\\test_003_yans_case.py::TestYansglCase::test_bum_add_new_card"
     ])

@@ -58,6 +58,10 @@ class Testchengzu():
         success = self.zl.unit_chengzu.pilth()
         assert success == True
 
+    #承租资产分配
+
+    #承租资产报修
+
 
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')

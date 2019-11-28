@@ -144,4 +144,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    a.start_acceptance()
+    a.yansgl_pass()

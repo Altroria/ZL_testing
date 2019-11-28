@@ -178,3 +178,46 @@
 2019-11-27 17:16:04,755 test_004_dengz_case.py--> setup 20: INFO ----->登账
 2019-11-27 17:18:46,604 test_004_dengz_case.py--> setup 20: INFO ----->登账
 2019-11-27 17:20:06,829 test_004_dengz_case.py--> setup 20: INFO ----->登账
+2019-11-27 17:24:39,920 test_001_login_case.py--> setup 20: INFO ----->this is chrome
+2019-11-27 17:24:41,139 test_001_login_case.py--> setup 20: INFO ----->this is chrome
+2019-11-27 17:24:42,152 test_001_login_case.py--> setup 20: INFO ----->this is chrome
+2019-11-27 17:24:43,385 test_001_login_case.py--> setup 20: INFO ----->this is chrome
+2019-11-27 17:24:44,572 test_001_login_case.py--> setup 20: INFO ----->this is chrome
+2019-11-27 17:25:01,929 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:25:28,911 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:25:51,799 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:26:14,105 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:26:44,786 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:27:17,176 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:27:48,391 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:28:23,064 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 17:28:52,673 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 17:28:55,707 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 17:31:09,852 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:31:40,417 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:32:03,771 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:32:26,196 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 17:33:00,825 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:08:13,540 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:08:36,986 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:08:58,419 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:09:19,430 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:09:45,628 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:10:11,578 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:10:40,943 test_002_shenl_case.py--> setup 20: INFO ----->配置管理
+2019-11-27 18:11:30,850 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:11:58,430 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:12:01,036 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:12:07,483 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:12:29,617 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:12:58,696 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:13:01,737 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:17:26,000 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:17:46,976 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:18:05,468 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:18:44,728 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:20:13,283 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:20:58,802 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:21:18,416 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:21:37,723 test_003_yans_case.py--> setup 20: INFO ----->验收
+2019-11-27 18:22:17,458 test_003_yans_case.py--> setup 20: INFO ----->验收

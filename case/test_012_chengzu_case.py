@@ -65,6 +65,10 @@ class chengzu(unittest.TestCase):
         success = self.zl.unit_chengzu.pilth()
         self.assertTrue(success, "退还成功")
 
+    #承租资产分配
+
+    #承租资产报修
+
 
 if __name__ == "__main__":
     file_path = os.path.join(os.getcwd() + "/report/" + "test_case.html")

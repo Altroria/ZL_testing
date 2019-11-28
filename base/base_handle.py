@@ -15,11 +15,7 @@ class BaseHandle(SeleniumDriver):
     def __init__(self, driver):
         SeleniumDriver.__init__(self, driver)
 
-    def functional_combination(usr_value=None,
-                               menu_value=None,
-                               sign_value=None,
-                               index=None,
-                               search_value=None):
+    def functional_combination(usr_value=None, menu_value=None, sign_value=None, index=None, search_value=None):
         '''
         装饰器：功能组合
         usr_value 切换用户
@@ -52,6 +48,7 @@ class BaseHandle(SeleniumDriver):
                 if index != None:
                     #调用点击卡片
                     try:
+                        time.sleep(3)
                         self.handle.check_card(index)
                     except:
                         print("勾选卡片错误")
@@ -101,17 +98,18 @@ class BaseHandle(SeleniumDriver):
     #选择分类明细
     def choice_first_class(self, value):
         self.click_element("资产分类", "明细资产分类")
+        time.sleep(3)
         try:
             #四级分类
             third_class, second_class, first_class = self.get_class_value(
                 "资产分类", value)
             if first_class != "土地、房屋及构筑物":
                 self.click_element("一级分类", first_class)
-            time.sleep(0.3)
+            time.sleep(1)
             self.click_element("二级分类", second_class)
-            time.sleep(0.3)
+            time.sleep(1)
             self.click_element("三级分类", third_class)
-            time.sleep(0.3)
+            time.sleep(1)
             self.click_element("四级分类", value)
         except:
             #三级分类
@@ -119,9 +117,9 @@ class BaseHandle(SeleniumDriver):
                 second_class, first_class = self.get_class_value("资产分类", value)
                 if first_class != "土地、房屋及构筑物":
                     self.click_element("一级分类", first_class)
-                time.sleep(0.3)
+                time.sleep(1)
                 self.click_element("二级分类", second_class)
-                time.sleep(0.3)
+                time.sleep(1)
                 self.click_element("三级分类", value)
             except:
                 #五级级分类
@@ -130,13 +128,13 @@ class BaseHandle(SeleniumDriver):
                         "资产分类", value)
                     if first_class != "土地、房屋及构筑物":
                         self.click_element("一级分类", first_class)
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.click_element("二级分类", second_class)
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.click_element("三级分类", third_class)
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.click_element("四级分类", fourth_class)
-                    time.sleep(0.3)
+                    time.sleep(1)
                     self.click_element("五级分类", value)
                 except:
                     print("分类输入错误。请选择最末级分类、或者加上上级分类")
@@ -238,6 +236,7 @@ class BaseHandle(SeleniumDriver):
         n = len(index)
         counter = 1
         while counter <= n:
+            self.wait_element("通用", "勾选卡片")
             self.click_element("通用", "勾选卡片", index[counter - 1] - 1)
             counter += 1
 

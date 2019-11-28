@@ -46,18 +46,17 @@ class UserShenllPage():
     @BaseHandle.functional_combination("使用人", "我要申领", index=[1])
     def shenl_tj(self):
         self.handle.click_element("我要申领", "提交申领")
-        self.handle.switch_iframe()
 
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = UserShenllPage(driver)
-    driver.get('http://58.246.240.154:7878/zl/179107')
+    driver.get('http://192.168.1.164:27979/zl/179333')
     time.sleep(1)
-    a.send_value('登录', "username", "ss")
-    a.send_value('登录', "password", "123qwe")
+    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "password", "123")
     driver.maximize_window()
     time.sleep(1)
-    a.click_element('登录', 'login')
+    a.handle.click_element('登录', 'login')
     time.sleep(5)
-    a.shenl_tj("PC服务器")
+    a.shenl_tj()
