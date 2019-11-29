@@ -57,6 +57,16 @@ class PeizlPage():
         else:
             return False
 
+    def peiz_ss_tuih(self):
+        '''
+        单位审核退回
+        '''
+        self.peiz_ss("退回")
+        if self.__get_message() == "审核成功！":
+            return True
+        else:
+            return False
+
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function find_all(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sort_column(elem) {
+    toggle_sort_states(elem);
+    var colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    var key;
+    if (elem.classList.contains('numeric')) {
+        key = key_num;
+    } else if (elem.classList.contains('result')) {
+        key = key_result;
+    } else {
+        key = key_alpha;
+    }
+    sort_table(elem, key(colIndex));
+}
+
+function show_all_extras() {
+    find_all('.col-result').forEach(show_extras);
+}
+
+function hide_all_extras() {
+    find_all('.col-result').forEach(hide_extras);
+}
+
+function show_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.remove("collapsed");
+    expandcollapse.classList.remove("expander");
+    expandcollapse.classList.add("collapser");
+}
+
+function hide_extras(colresult_elem) {
+    var extras = colresult_elem.parentNode.nextElementSibling;
+    var expandcollapse = colresult_elem.firstElementChild;
+    extras.classList.add("collapsed");
+    expandcollapse.classList.remove("collapser");
+    expandcollapse.classList.add("expander");
+}
+
+function show_filters() {
+    var filter_items = document.getElementsByClassName('filter');
+    for (var i = 0; i < filter_items.length; i++)
+        filter_items[i].hidden = false;
+}
+
+function add_collapse() {
+    // Add links for show/hide all
+    var resulttable = find('table#results-table');
+    var showhideall = document.createElement("p");
+    showhideall.innerHTML = '<a href="javascript:show_all_extras()">Show all details</a> / ' +
+                            '<a href="javascript:hide_all_extras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    find_all('.col-result').forEach(function(elem) {
+        var collapsed = get_query_parameter('collapsed') || 'Passed';
+        var extras = elem.parentNode.nextElementSibling;
+        var expandcollapse = document.createElement("span");
+        if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add("collapsed");
+            expandcollapse.classList.add("expander");
+        } else {
+            expandcollapse.classList.add("collapser");
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener("click", function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains("collapsed")) {
+                show_extras(event.currentTarget);
+            } else {
+                hide_extras(event.currentTarget);
+            }
+        });
+    })
+}
+
+function get_query_parameter(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () {
+    reset_sort_headers();
+
+    add_collapse();
+
+    show_filters();
+
+    toggle_sort_states(find('.initial-sort'));
+
+    find_all('.sortable').forEach(function(elem) {
+        elem.addEventListener("click",
+                              function(event) {
+                                  sort_column(elem);
+                              }, false)
+    });
+
+};
+
+function sort_table(clicked, key_func) {
+    var rows = find_all('.results-table-row');
+    var reversed = !clicked.classList.contains('asc');
+    var sorted_rows = sort(rows, key_func, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    var thead = document.getElementById("results-table-head");
+    document.getElementById('results-table').remove();
+    var parent = document.createElement("table");
+    parent.id = "results-table";
+    parent.appendChild(thead);
+    sorted_rows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName("BODY")[0].appendChild(parent);
+}
+
+function sort(items, key_func, reversed) {
+    var sort_array = items.map(function(item, i) {
+        return [key_func(item), i];
+    });
+
+    sort_array.sort(function(a, b) {
+        var key_a = a[0];
+        var key_b = b[0];
+
+        if (key_a == key_b) return 0;
+
+        if (reversed) {
+            return (key_a < key_b ? 1 : -1);
+        } else {
+            return (key_a > key_b ? 1 : -1);
+        }
+    });
+
+    return sort_array.map(function(item) {
+        var index = item[1];
+        return items[index];
+    });
+}
+
+function key_alpha(col_index) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[col_index].firstChild.data.toLowerCase();
+    };
+}
+
+function key_num(col_index) {
+    return function(elem) {
+        return parseFloat(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function key_result(col_index) {
+    return function(elem) {
+        var strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+                       'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[col_index].firstChild.data);
+    };
+}
+
+function reset_sort_headers() {
+    find_all('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    find_all('.sortable').forEach(function(elem) {
+        var icon = document.createElement("div");
+        icon.className = "sort-icon";
+        icon.textContent = "vvv";
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove("desc", "active");
+        elem.classList.add("asc", "inactive");
+    });
+}
+
+function toggle_sort_states(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        reset_sort_headers();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function is_all_rows_hidden(value) {
+  return value.hidden == false;
+}
+
+function filter_table(elem) {
+    var outcome_att = "data-test-result";
+    var outcome = elem.getAttribute(outcome_att);
+    class_outcome = outcome + " results-table-row";
+    var outcome_rows = document.getElementsByClassName(class_outcome);
+
+    for(var i = 0; i < outcome_rows.length; i++){
+        outcome_rows[i].hidden = !elem.checked;
+    }
+
+    var rows = find_all('.results-table-row').filter(is_all_rows_hidden);
+    var all_rows_hidden = rows.length == 0 ? true : false;
+    var not_found_message = document.getElementById("not-found-message");
+    not_found_message.hidden = !all_rows_hidden;
+}
+</script>
+    <h1>reportname01.html</h1>
+    <p>Report generated on 29-Nov-2019 at 10:03:25 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.0.0</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>JAVA_HOME</td>
+        <td>C:\Program Files\Java\jdk1.8.0_121</td></tr>
+      <tr>
+        <td>Packages</td>
+        <td>{&apos;pytest&apos;: &apos;5.2.2&apos;, &apos;py&apos;: &apos;1.7.0&apos;, &apos;pluggy&apos;: &apos;0.13.0&apos;}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Windows-10-10.0.17134-SP0</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{&apos;celery&apos;: &apos;4.3.0&apos;, &apos;html&apos;: &apos;2.0.0&apos;, &apos;metadata&apos;: &apos;1.8.0&apos;}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.7.2</td></tr></table>
+    <h2>Summary</h2>
+    <p>40 tests ran in 2861.62 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">32 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">8 failed</span>, <input checked="true" class="filter" data-test-result="error" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">1 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable numeric" col="duration">Duration</th>
+          <th>Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="error results-table-row">
+        <tr>
+          <td class="col-result">Error</td>
+          <td class="col-name">case_pytest/test_007_zhuanyi_case.py::TestZhuanyCase::test_shiyr_zhuany_shiyr_shouh::setup</td>
+          <td class="col-duration">25.41</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_007_zhuanyi_case.TestZhuanyCase object at 0x05CFC130&gt;<br/><br/>    def setup(self):<br/>        self.logger.info(&quot;转移流程&quot;)<br/>        self.zl = make_date(self.driver)<br/>&gt;       self.zl.unit_suoyzc_wdengz()<br/><br/>case_pytest\test_007_zhuanyi_case.py:27: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>page\date\make_date.py:60: in unit_suoyzc_wdengz<br/>    self.unit_yans.add_card(value, card_value)<br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Unit\unit_yansgl_page.py:65: in add_card<br/>    self.__send_card_data(value)<br/>page\Unit\unit_yansgl_page.py:26: in __send_card_data<br/>    self.handle.click_element(&quot;验收管理&quot;, &quot;卡片信息&quot;, 8)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x05CFC430&gt;, by = &#x27;验收管理&#x27;, info = &#x27;卡片信息&#x27;, index = 8<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_007_zhuanyi_case.py:25 转移流程<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_bum_sl_danw_ty</td>
+          <td class="col-duration">41.52</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_002_shenl_case.TestShenlCase object at 0x05912690&gt;<br/><br/>    def test_bum_sl_danw_ty(self):<br/>        self.zl.dep_peiz.peiz_tj(&quot;PC服务器&quot;)<br/>        time.sleep(3)<br/>        self.driver.refresh()<br/>        self.zl.dep_peiz.peiz_ss(&quot;送审&quot;)<br/>        time.sleep(3)<br/>        self.driver.refresh()<br/>        success = self.zl.unit_peiz.peiz_ss_success(&quot;同意&quot;)<br/>&gt;       assert success == True<br/><span class="error">E       assert False == True</span><br/><br/>case_pytest\test_002_shenl_case.py:102: AssertionError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ty</td>
+          <td class="col-duration">87.07</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_009_weix_case.TestWeixCase object at 0x0549FE90&gt;<br/><br/>    def test_shiyr_weix_bum_ty(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 分配至使用人<br/>        self.zl.user_shouy.receipt(&quot;确认收货&quot;)  # 使用人收货<br/>        self.zl.user_shouy.apply_business(&quot;申请报修&quot;)  # 使用人申请报修<br/>        self.driver.refresh()<br/>        self.zl.user_weix.weix_ss(&quot;提交申请&quot;)  # 使用人提交报修单<br/>&gt;       success = self.zl.dep_weix.weix_ss_success(&quot;同意&quot;)  # 部门同意<br/><br/>case_pytest\test_009_weix_case.py:45: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>page\Departmental\dep_weixgl_page.py:68: in weix_ss_success<br/>    self.weix_ss(value)<br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Departmental\dep_weixgl_page.py:45: in weix_ss<br/>    self.handle.click_element(&quot;通用&quot;, value)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x05950650&gt;, by = &#x27;通用&#x27;, info = &#x27;同意&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ss_danw_ty</td>
+          <td class="col-duration">69.25</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_009_weix_case.TestWeixCase object at 0x057C0850&gt;<br/><br/>    def test_shiyr_weix_bum_ss_danw_ty(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 分配至使用人<br/>        self.zl.user_shouy.receipt(&quot;确认收货&quot;)  # 使用人收货<br/>        self.zl.user_shouy.apply_business(&quot;申请报修&quot;)  # 使用人申请报修<br/>        self.driver.refresh()<br/>        self.zl.user_weix.weix_ss(&quot;提交申请&quot;)  # 使用人提交报修单<br/>        self.zl.dep_weix.weix_ss(&quot;送审&quot;)  # 部门送审<br/>        self.driver.refresh()<br/>        self.zl.unit_weix.weix_ss(&quot;同意&quot;)  # 单位同意<br/>        self.driver.refresh()<br/>&gt;       self.zl.user_weix.weix_yans(1000)  # 使用人维修验收<br/><br/>case_pytest\test_009_weix_case.py:75: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\User\user_weix_page.py:39: in weix_yans<br/>    self.handle.click_element(&quot;维修管理&quot;, &quot;维修验收&quot;)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x057C09D0&gt;, by = &#x27;维修管理&#x27;, info = &#x27;维修验收&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ss_danw_bty</td>
+          <td class="col-duration">74.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_009_weix_case.TestWeixCase object at 0x0544D9D0&gt;<br/><br/>    def test_shiyr_weix_bum_ss_danw_bty(self):<br/>        self.zl.unit_fenp.fenp(&quot;使用人&quot;)  # 分配至使用人<br/>        self.zl.user_shouy.receipt(&quot;确认收货&quot;)  # 使用人收货<br/>        self.zl.user_shouy.apply_business(&quot;申请报修&quot;)  # 使用人申请报修<br/>        self.driver.refresh()<br/>        self.zl.user_weix.weix_ss(&quot;提交申请&quot;)  # 使用人提交报修单<br/>&gt;       self.zl.dep_weix.weix_ss(&quot;送审&quot;)  # 部门送审<br/><br/>case_pytest\test_009_weix_case.py:87: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Departmental\dep_weixgl_page.py:45: in weix_ss<br/>    self.handle.click_element(&quot;通用&quot;, value)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x05445B30&gt;, by = &#x27;通用&#x27;, info = &#x27;送审&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_bum_ss_danw_ty</td>
+          <td class="col-duration">66.73</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_009_weix_case.TestWeixCase object at 0x0147EE10&gt;<br/><br/>    def test_bum_ss_danw_ty(self):<br/>        self.zl.unit_fenp.fenp(&quot;部门&quot;)  # 分配至部门<br/>        self.zl.dep_shouy.receipt(&quot;确认收货&quot;)  # 部门收货<br/>        self.zl.dep_shouy.apply_business(&quot;申请报修&quot;)  # 部门申请报修<br/>        self.driver.refresh()<br/>&gt;       self.zl.dep_weix.weix_ss(&quot;送审&quot;)  # 部门送审<br/><br/>case_pytest\test_009_weix_case.py:98: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Departmental\dep_weixgl_page.py:45: in weix_ss<br/>    self.handle.click_element(&quot;通用&quot;, value)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x0148A0F0&gt;, by = &#x27;通用&#x27;, info = &#x27;送审&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_danw_faq_danw_ty</td>
+          <td class="col-duration">47.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_009_weix_case.TestWeixCase object at 0x05472710&gt;<br/><br/>    def test_danw_faq_danw_ty(self):<br/>        self.zl.unit_shouy.apply_business(&quot;申请报修&quot;)  # 单位申请报修<br/>&gt;       self.zl.unit_weix.weix_ss(&quot;同意&quot;)<br/><br/>case_pytest\test_009_weix_case.py:110: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Unit\unit_weixgl_page.py:44: in weix_ss<br/>    self.handle.click_element(&quot;通用&quot;, value)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x05472970&gt;, by = &#x27;通用&#x27;, info = &#x27;同意&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:325: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_danw_faq_danw_zhix</td>
+          <td class="col-duration">39.90</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_010_chuzu_case.TestChuzCase object at 0x05CFB1F0&gt;<br/><br/>    def test_chuzu_danw_faq_danw_zhix(self):<br/>        self.zl.unit_shouy.apply_business(&quot;申请出租&quot;)<br/>&gt;       self.zl.unit_chuzu.chuzu_scdj()  # 生成单据<br/><br/>case_pytest\test_010_chuzu_case.py:41: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:57: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Unit\unit_chuzu_page.py:41: in chuzu_scdj<br/>    self.handle.wait_element(&quot;出租&quot;, &quot;下一步&quot;)<br/>base\base_class.py:121: in wait_element<br/>    EC.visibility_of_element_located(locator))<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.support.wait.WebDriverWait (session=&quot;23985021cf71f3027e0431f69a0b5e00&quot;)&gt;<br/>method = &lt;selenium.webdriver.support.expected_conditions.visibility_of_element_located object at 0x05717F50&gt;, message = &#x27;&#x27;<br/><br/>    def until(self, method, message=&#x27;&#x27;):<br/>        &quot;&quot;&quot;Calls the method provided with the driver as an argument until the \<br/>        return value is not False.&quot;&quot;&quot;<br/>        screen = None<br/>        stacktrace = None<br/>    <br/>        end_time = time.time() + self._timeout<br/>        while True:<br/>            try:<br/>                value = method(self._driver)<br/>                if value:<br/>                    return value<br/>            except self._ignored_exceptions as exc:<br/>                screen = getattr(exc, &#x27;screen&#x27;, None)<br/>                stacktrace = getattr(exc, &#x27;stacktrace&#x27;, None)<br/>            time.sleep(self._poll)<br/>            if time.time() &gt; end_time:<br/>                break<br/>&gt;       raise TimeoutException(message, screen, stacktrace)<br/><span class="error">E       selenium.common.exceptions.TimeoutException: Message:</span><br/><br/>C:\python\lib\site-packages\selenium\webdriver\support\wait.py:80: TimeoutException<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_tuihuan_01</td>
+          <td class="col-duration">20.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;base.base_handle.BaseHandle object at 0x05901810&gt;, value = &#x27;承租 (借)&#x27;<br/><br/>    def click_two_level_menu(self, value):<br/>        self.switch_iframe()<br/>        try:<br/>            role_name = self.get_role()<br/>        except:<br/>            role_name = &quot;后台管理&quot;<br/>        menu_name, menu_value = self.get_menu_value(role_name, value)<br/>        try:<br/>            if value == &#x27;资产转移&#x27; and role_name == &#x27;部门资产管理员&#x27;:<br/>                self.click_element(&#x27;二级菜单&#x27;, &#x27;部门_资产转移&#x27;)<br/>            elif value == &#x27;资产转移&#x27; and role_name == &#x27;单位资产管理员&#x27;:<br/>                self.click_element(&#x27;二级菜单&#x27;, &#x27;单位_资产转移&#x27;)<br/>            else:<br/>&gt;               self.click_element(&#x27;二级菜单&#x27;, menu_value)<br/><br/>base\base_handle.py:89: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x05901810&gt;, by = &#x27;二级菜单&#x27;, info = &#x27;承租 (借)&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><br/>base\base_class.py:325: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;c726a2c1769149c646817d0f178442fc&quot;, element=&quot;0.9559978413150128-2&quot;)&gt;<br/><br/>    def click(self):<br/>        &quot;&quot;&quot;Clicks the element.&quot;&quot;&quot;<br/>&gt;       self._execute(Command.CLICK_ELEMENT)<br/><br/>C:\python\lib\site-packages\selenium\webdriver\remote\webelement.py:80: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.remote.webelement.WebElement (session=&quot;c726a2c1769149c646817d0f178442fc&quot;, element=&quot;0.9559978413150128-2&quot;)&gt;, command = &#x27;clickElement&#x27;<br/>params = {&#x27;id&#x27;: &#x27;0.9559978413150128-2&#x27;, &#x27;sessionId&#x27;: &#x27;c726a2c1769149c646817d0f178442fc&#x27;}<br/><br/>    def _execute(self, command, params=None):<br/>        &quot;&quot;&quot;Executes a command against the underlying HTML element.<br/>    <br/>        Args:<br/>          command: The name of the command to _execute as a string.<br/>          params: A dictionary of named parameters to send with the command.<br/>    <br/>        Returns:<br/>          The command&#x27;s JSON response loaded into a dictionary object.<br/>        &quot;&quot;&quot;<br/>        if not params:<br/>            params = {}<br/>        params[&#x27;id&#x27;] = self._id<br/>&gt;       return self._parent.execute(command, params)<br/><br/>C:\python\lib\site-packages\selenium\webdriver\remote\webelement.py:633: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session=&quot;c726a2c1769149c646817d0f178442fc&quot;)&gt;, driver_command = &#x27;clickElement&#x27;<br/>params = {&#x27;id&#x27;: &#x27;0.9559978413150128-2&#x27;, &#x27;sessionId&#x27;: &#x27;c726a2c1769149c646817d0f178442fc&#x27;}<br/><br/>    def execute(self, driver_command, params=None):<br/>        &quot;&quot;&quot;<br/>        Sends a command to be executed by a command.CommandExecutor.<br/>    <br/>        :Args:<br/>         - driver_command: The name of the command to execute as a string.<br/>         - params: A dictionary of named parameters to send with the command.<br/>    <br/>        :Returns:<br/>          The command&#x27;s JSON response loaded into a dictionary object.<br/>        &quot;&quot;&quot;<br/>        if self.session_id is not None:<br/>            if not params:<br/>                params = {&#x27;sessionId&#x27;: self.session_id}<br/>            elif &#x27;sessionId&#x27; not in params:<br/>                params[&#x27;sessionId&#x27;] = self.session_id<br/>    <br/>        params = self._wrap_value(params)<br/>        response = self.command_executor.execute(driver_command, params)<br/>        if response:<br/>&gt;           self.error_handler.check_response(response)<br/><br/>C:\python\lib\site-packages\selenium\webdriver\remote\webdriver.py:321: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x05901850&gt;<br/>response = {&#x27;sessionId&#x27;: &#x27;c726a2c1769149c646817d0f178442fc&#x27;, &#x27;status&#x27;: 13, &#x27;value&#x27;: {&#x27;message&#x27;: &#x27;unknown error: Element &lt;a href=&quot;...er info: chromedriver=70.0.3538.16 (16ed95b41bb05e565b11fb66ac33c660b721f778),platform=Windows NT 10.0.17134 x86_64)&#x27;}}<br/><br/>    def check_response(self, response):<br/>        &quot;&quot;&quot;<br/>        Checks that a JSON response from the WebDriver does not have an error.<br/>    <br/>        :Args:<br/>         - response - The JSON response from the WebDriver server as a dictionary<br/>           object.<br/>    <br/>        :Raises: If the response contains an error message.<br/>        &quot;&quot;&quot;<br/>        status = response.get(&#x27;status&#x27;, None)<br/>        if status is None or status == ErrorCode.SUCCESS:<br/>            return<br/>        value = None<br/>        message = response.get(&quot;message&quot;, &quot;&quot;)<br/>        screen = response.get(&quot;screen&quot;, &quot;&quot;)<br/>        stacktrace = None<br/>        if isinstance(status, int):<br/>            value_json = response.get(&#x27;value&#x27;, None)<br/>            if value_json and isinstance(value_json, basestring):<br/>                import json<br/>                try:<br/>                    value = json.loads(value_json)<br/>                    if len(value.keys()) == 1:<br/>                        value = value[&#x27;value&#x27;]<br/>                    status = value.get(&#x27;error&#x27;, None)<br/>                    if status is None:<br/>                        status = value[&quot;status&quot;]<br/>                        message = value[&quot;value&quot;]<br/>                        if not isinstance(message, basestring):<br/>                            value = message<br/>                            message = message.get(&#x27;message&#x27;)<br/>                    else:<br/>                        message = value.get(&#x27;message&#x27;, None)<br/>                except ValueError:<br/>                    pass<br/>    <br/>        exception_class = ErrorInResponseException<br/>        if status in ErrorCode.NO_SUCH_ELEMENT:<br/>            exception_class = NoSuchElementException<br/>        elif status in ErrorCode.NO_SUCH_FRAME:<br/>            exception_class = NoSuchFrameException<br/>        elif status in ErrorCode.NO_SUCH_WINDOW:<br/>            exception_class = NoSuchWindowException<br/>        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:<br/>            exception_class = StaleElementReferenceException<br/>        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:<br/>            exception_class = ElementNotVisibleException<br/>        elif status in ErrorCode.INVALID_ELEMENT_STATE:<br/>            exception_class = InvalidElementStateException<br/>        elif status in ErrorCode.INVALID_SELECTOR \<br/>                or status in ErrorCode.INVALID_XPATH_SELECTOR \<br/>                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:<br/>            exception_class = InvalidSelectorException<br/>        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:<br/>            exception_class = ElementNotSelectableException<br/>        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:<br/>            exception_class = ElementNotInteractableException<br/>        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:<br/>            exception_class = InvalidCookieDomainException<br/>        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:<br/>            exception_class = UnableToSetCookieException<br/>        elif status in ErrorCode.TIMEOUT:<br/>            exception_class = TimeoutException<br/>        elif status in ErrorCode.SCRIPT_TIMEOUT:<br/>            exception_class = TimeoutException<br/>        elif status in ErrorCode.UNKNOWN_ERROR:<br/>            exception_class = WebDriverException<br/>        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:<br/>            exception_class = UnexpectedAlertPresentException<br/>        elif status in ErrorCode.NO_ALERT_OPEN:<br/>            exception_class = NoAlertPresentException<br/>        elif status in ErrorCode.IME_NOT_AVAILABLE:<br/>            exception_class = ImeNotAvailableException<br/>        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:<br/>            exception_class = ImeActivationFailedException<br/>        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:<br/>            exception_class = MoveTargetOutOfBoundsException<br/>        elif status in ErrorCode.JAVASCRIPT_ERROR:<br/>            exception_class = JavascriptException<br/>        elif status in ErrorCode.SESSION_NOT_CREATED:<br/>            exception_class = SessionNotCreatedException<br/>        elif status in ErrorCode.INVALID_ARGUMENT:<br/>            exception_class = InvalidArgumentException<br/>        elif status in ErrorCode.NO_SUCH_COOKIE:<br/>            exception_class = NoSuchCookieException<br/>        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:<br/>            exception_class = ScreenshotException<br/>        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:<br/>            exception_class = ElementClickInterceptedException<br/>        elif status in ErrorCode.INSECURE_CERTIFICATE:<br/>            exception_class = InsecureCertificateException<br/>        elif status in ErrorCode.INVALID_COORDINATES:<br/>            exception_class = InvalidCoordinatesException<br/>        elif status in ErrorCode.INVALID_SESSION_ID:<br/>            exception_class = InvalidSessionIdException<br/>        elif status in ErrorCode.UNKNOWN_METHOD:<br/>            exception_class = UnknownMethodException<br/>        else:<br/>            exception_class = WebDriverException<br/>        if value == &#x27;&#x27; or value is None:<br/>            value = response[&#x27;value&#x27;]<br/>        if isinstance(value, basestring):<br/>            if exception_class == ErrorInResponseException:<br/>                raise exception_class(response, value)<br/>            raise exception_class(value)<br/>        if message == &quot;&quot; and &#x27;message&#x27; in value:<br/>            message = value[&#x27;message&#x27;]<br/>    <br/>        screen = None<br/>        if &#x27;screen&#x27; in value:<br/>            screen = value[&#x27;screen&#x27;]<br/>    <br/>        stacktrace = None<br/>        if &#x27;stackTrace&#x27; in value and value[&#x27;stackTrace&#x27;]:<br/>            stacktrace = []<br/>            try:<br/>                for frame in value[&#x27;stackTrace&#x27;]:<br/>                    line = self._value_or_default(frame, &#x27;lineNumber&#x27;, &#x27;&#x27;)<br/>                    file = self._value_or_default(frame, &#x27;fileName&#x27;, &#x27;&lt;anonymous&gt;&#x27;)<br/>                    if line:<br/>                        file = &quot;%s:%s&quot; % (file, line)<br/>                    meth = self._value_or_default(frame, &#x27;methodName&#x27;, &#x27;&lt;anonymous&gt;&#x27;)<br/>                    if &#x27;className&#x27; in frame:<br/>                        meth = &quot;%s.%s&quot; % (frame[&#x27;className&#x27;], meth)<br/>                    msg = &quot;    at %s (%s)&quot;<br/>                    msg = msg % (meth, file)<br/>                    stacktrace.append(msg)<br/>            except TypeError:<br/>                pass<br/>        if exception_class == ErrorInResponseException:<br/>            raise exception_class(response, message)<br/>        elif exception_class == UnexpectedAlertPresentException:<br/>            alert_text = None<br/>            if &#x27;data&#x27; in value:<br/>                alert_text = value[&#x27;data&#x27;].get(&#x27;text&#x27;)<br/>            elif &#x27;alert&#x27; in value:<br/>                alert_text = value[&#x27;alert&#x27;].get(&#x27;text&#x27;)<br/>            raise exception_class(message, screen, stacktrace, alert_text)<br/>&gt;       raise exception_class(message, screen, stacktrace)<br/><span class="error">E       selenium.common.exceptions.WebDriverException: Message: unknown error: Element &lt;a href=&quot;javascript: void(0)&quot; onclick=&quot;toChengzj(&#x27;chengzj&#x27;, &#x27;承租 (借)&#x27;,&#x27;1&#x27;)&quot; class=&quot;select&quot;&gt;...&lt;/a&gt; is not clickable at point (90, 393). Other element would receive the click: &lt;div class=&quot;layui-layer-shade&quot; id=&quot;layui-layer-shade2&quot; times=&quot;2&quot; style=&quot;z-index:19891; background-color:#000; opacity:0.3; filter:alpha(opacity=30);&quot;&gt;&lt;/div&gt;</span><br/><span class="error">E         (Session info: chrome=70.0.3538.102)</span><br/><span class="error">E         (Driver info: chromedriver=70.0.3538.16 (16ed95b41bb05e565b11fb66ac33c660b721f778),platform=Windows NT 10.0.17134 x86_64)</span><br/><br/>C:\python\lib\site-packages\selenium\webdriver\remote\errorhandler.py:242: WebDriverException<br/><br/>During handling of the above exception, another exception occurred:<br/><br/>self = &lt;test_011_chengzu_case.Testchengzu object at 0x05901350&gt;<br/><br/>    def test_chenz_tuihuan_01(self):<br/>        self.zl.unit_chengzu.xinz()<br/>&gt;       self.zl.unit_chengzu.jiaofu()<br/><br/>case_pytest\test_011_chengzu_case.py:46: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>base\base_handle.py:34: in wrapper<br/>    self.handle.switch_meun(menu_value)<br/>base\base_handle.py:185: in switch_meun<br/>    self.click_two_level_menu(value)<br/>base\base_handle.py:98: in click_two_level_menu<br/>    self.click_element(&#x27;二级菜单&#x27;, menu_value)<br/>base\base_class.py:325: in click_element<br/>    element.click()<br/>C:\python\lib\site-packages\selenium\webdriver\remote\webelement.py:80: in click<br/>    self._execute(Command.CLICK_ELEMENT)<br/>C:\python\lib\site-packages\selenium\webdriver\remote\webelement.py:633: in _execute<br/>    return self._parent.execute(command, params)<br/>C:\python\lib\site-packages\selenium\webdriver\remote\webdriver.py:321: in execute<br/>    self.error_handler.check_response(response)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x05901850&gt;<br/>response = {&#x27;sessionId&#x27;: &#x27;c726a2c1769149c646817d0f178442fc&#x27;, &#x27;status&#x27;: 11, &#x27;value&#x27;: {&#x27;message&#x27;: &#x27;element not interactable\n  (Ses...er info: chromedriver=70.0.3538.16 (16ed95b41bb05e565b11fb66ac33c660b721f778),platform=Windows NT 10.0.17134 x86_64)&#x27;}}<br/><br/>    def check_response(self, response):<br/>        &quot;&quot;&quot;<br/>        Checks that a JSON response from the WebDriver does not have an error.<br/>    <br/>        :Args:<br/>         - response - The JSON response from the WebDriver server as a dictionary<br/>           object.<br/>    <br/>        :Raises: If the response contains an error message.<br/>        &quot;&quot;&quot;<br/>        status = response.get(&#x27;status&#x27;, None)<br/>        if status is None or status == ErrorCode.SUCCESS:<br/>            return<br/>        value = None<br/>        message = response.get(&quot;message&quot;, &quot;&quot;)<br/>        screen = response.get(&quot;screen&quot;, &quot;&quot;)<br/>        stacktrace = None<br/>        if isinstance(status, int):<br/>            value_json = response.get(&#x27;value&#x27;, None)<br/>            if value_json and isinstance(value_json, basestring):<br/>                import json<br/>                try:<br/>                    value = json.loads(value_json)<br/>                    if len(value.keys()) == 1:<br/>                        value = value[&#x27;value&#x27;]<br/>                    status = value.get(&#x27;error&#x27;, None)<br/>                    if status is None:<br/>                        status = value[&quot;status&quot;]<br/>                        message = value[&quot;value&quot;]<br/>                        if not isinstance(message, basestring):<br/>                            value = message<br/>                            message = message.get(&#x27;message&#x27;)<br/>                    else:<br/>                        message = value.get(&#x27;message&#x27;, None)<br/>                except ValueError:<br/>                    pass<br/>    <br/>        exception_class = ErrorInResponseException<br/>        if status in ErrorCode.NO_SUCH_ELEMENT:<br/>            exception_class = NoSuchElementException<br/>        elif status in ErrorCode.NO_SUCH_FRAME:<br/>            exception_class = NoSuchFrameException<br/>        elif status in ErrorCode.NO_SUCH_WINDOW:<br/>            exception_class = NoSuchWindowException<br/>        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:<br/>            exception_class = StaleElementReferenceException<br/>        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:<br/>            exception_class = ElementNotVisibleException<br/>        elif status in ErrorCode.INVALID_ELEMENT_STATE:<br/>            exception_class = InvalidElementStateException<br/>        elif status in ErrorCode.INVALID_SELECTOR \<br/>                or status in ErrorCode.INVALID_XPATH_SELECTOR \<br/>                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:<br/>            exception_class = InvalidSelectorException<br/>        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:<br/>            exception_class = ElementNotSelectableException<br/>        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:<br/>            exception_class = ElementNotInteractableException<br/>        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:<br/>            exception_class = InvalidCookieDomainException<br/>        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:<br/>            exception_class = UnableToSetCookieException<br/>        elif status in ErrorCode.TIMEOUT:<br/>            exception_class = TimeoutException<br/>        elif status in ErrorCode.SCRIPT_TIMEOUT:<br/>            exception_class = TimeoutException<br/>        elif status in ErrorCode.UNKNOWN_ERROR:<br/>            exception_class = WebDriverException<br/>        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:<br/>            exception_class = UnexpectedAlertPresentException<br/>        elif status in ErrorCode.NO_ALERT_OPEN:<br/>            exception_class = NoAlertPresentException<br/>        elif status in ErrorCode.IME_NOT_AVAILABLE:<br/>            exception_class = ImeNotAvailableException<br/>        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:<br/>            exception_class = ImeActivationFailedException<br/>        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:<br/>            exception_class = MoveTargetOutOfBoundsException<br/>        elif status in ErrorCode.JAVASCRIPT_ERROR:<br/>            exception_class = JavascriptException<br/>        elif status in ErrorCode.SESSION_NOT_CREATED:<br/>            exception_class = SessionNotCreatedException<br/>        elif status in ErrorCode.INVALID_ARGUMENT:<br/>            exception_class = InvalidArgumentException<br/>        elif status in ErrorCode.NO_SUCH_COOKIE:<br/>            exception_class = NoSuchCookieException<br/>        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:<br/>            exception_class = ScreenshotException<br/>        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:<br/>            exception_class = ElementClickInterceptedException<br/>        elif status in ErrorCode.INSECURE_CERTIFICATE:<br/>            exception_class = InsecureCertificateException<br/>        elif status in ErrorCode.INVALID_COORDINATES:<br/>            exception_class = InvalidCoordinatesException<br/>        elif status in ErrorCode.INVALID_SESSION_ID:<br/>            exception_class = InvalidSessionIdException<br/>        elif status in ErrorCode.UNKNOWN_METHOD:<br/>            exception_class = UnknownMethodException<br/>        else:<br/>            exception_class = WebDriverException<br/>        if value == &#x27;&#x27; or value is None:<br/>            value = response[&#x27;value&#x27;]<br/>        if isinstance(value, basestring):<br/>            if exception_class == ErrorInResponseException:<br/>                raise exception_class(response, value)<br/>            raise exception_class(value)<br/>        if message == &quot;&quot; and &#x27;message&#x27; in value:<br/>            message = value[&#x27;message&#x27;]<br/>    <br/>        screen = None<br/>        if &#x27;screen&#x27; in value:<br/>            screen = value[&#x27;screen&#x27;]<br/>    <br/>        stacktrace = None<br/>        if &#x27;stackTrace&#x27; in value and value[&#x27;stackTrace&#x27;]:<br/>            stacktrace = []<br/>            try:<br/>                for frame in value[&#x27;stackTrace&#x27;]:<br/>                    line = self._value_or_default(frame, &#x27;lineNumber&#x27;, &#x27;&#x27;)<br/>                    file = self._value_or_default(frame, &#x27;fileName&#x27;, &#x27;&lt;anonymous&gt;&#x27;)<br/>                    if line:<br/>                        file = &quot;%s:%s&quot; % (file, line)<br/>                    meth = self._value_or_default(frame, &#x27;methodName&#x27;, &#x27;&lt;anonymous&gt;&#x27;)<br/>                    if &#x27;className&#x27; in frame:<br/>                        meth = &quot;%s.%s&quot; % (frame[&#x27;className&#x27;], meth)<br/>                    msg = &quot;    at %s (%s)&quot;<br/>                    msg = msg % (meth, file)<br/>                    stacktrace.append(msg)<br/>            except TypeError:<br/>                pass<br/>        if exception_class == ErrorInResponseException:<br/>            raise exception_class(response, message)<br/>        elif exception_class == UnexpectedAlertPresentException:<br/>            alert_text = None<br/>            if &#x27;data&#x27; in value:<br/>                alert_text = value[&#x27;data&#x27;].get(&#x27;text&#x27;)<br/>            elif &#x27;alert&#x27; in value:<br/>                alert_text = value[&#x27;alert&#x27;].get(&#x27;text&#x27;)<br/>            raise exception_class(message, screen, stacktrace, alert_text)<br/>&gt;       raise exception_class(message, screen, stacktrace)<br/><span class="error">E       selenium.common.exceptions.ElementNotVisibleException: Message: element not interactable</span><br/><span class="error">E         (Session info: chrome=70.0.3538.102)</span><br/><span class="error">E         (Driver info: chromedriver=70.0.3538.16 (16ed95b41bb05e565b11fb66ac33c660b721f778),platform=Windows NT 10.0.17134 x86_64)</span><br/><br/>C:\python\lib\site-packages\selenium\webdriver\remote\errorhandler.py:242: ElementNotVisibleException<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_011_chengzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_001_login_case.py::TestLoginCase::test_login_name_error</td>
+          <td class="col-duration">1.56</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_001_login_case.py:32 this is chrome<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_001_login_case.py::TestLoginCase::test_login_name_none_error</td>
+          <td class="col-duration">1.32</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_001_login_case.py:32 this is chrome<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_001_login_case.py::TestLoginCase::test_login_password_error</td>
+          <td class="col-duration">1.43</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_001_login_case.py:32 this is chrome<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_001_login_case.py::TestLoginCase::test_login_password_none_error</td>
+          <td class="col-duration">1.30</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_001_login_case.py:32 this is chrome<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_001_login_case.py::TestLoginCase::test_login_success</td>
+          <td class="col-duration">3.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_001_login_case.py:32 this is chrome<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_th</td>
+          <td class="col-duration">41.27</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_ty</td>
+          <td class="col-duration">36.14</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_bty</td>
+          <td class="col-duration">35.55</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_ss_danw_th</td>
+          <td class="col-duration">43.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_ss_danw_ty</td>
+          <td class="col-duration">42.69</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_ss_danw_bty</td>
+          <td class="col-duration">42.68</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_002_shenl_case.py:25 配置管理<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_003_yans_case.py::TestYansglCase::test_bum_add_new_card</td>
+          <td class="col-duration">35.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_003_yans_case.py:25 验收<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_003_yans_case.py::TestYansglCase::test_bum_add_card</td>
+          <td class="col-duration">27.88</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_003_yans_case.py:25 验收<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_003_yans_case.py::TestYansglCase::test_danw_add_new_card</td>
+          <td class="col-duration">35.18</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_003_yans_case.py:25 验收<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_003_yans_case.py::TestYansglCase::test_danw_add_card</td>
+          <td class="col-duration">40.94</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_003_yans_case.py:25 验收<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_004_dengz_case.py::TestDengzCase::test_danw_dengz_butfp_caiw_dengz</td>
+          <td class="col-duration">41.57</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_004_dengz_case.py:25 登账<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_004_dengz_case.py::TestDengzCase::test_danw_dengz_tianfp_caiw_tui</td>
+          <td class="col-duration">26.77</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_004_dengz_case.py:25 登账<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_005_fenpei_case.py::TestFenpCase::test_danw_fp_bum_shouh</td>
+          <td class="col-duration">22.16</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_005_fenpei_case.py:26 分配<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_005_fenpei_case.py::TestFenpCase::test_danw_fp_shiyr_shouh</td>
+          <td class="col-duration">19.72</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_005_fenpei_case.py:26 分配<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_005_fenpei_case.py::TestFenpCase::test_bum_fp_bum_shouh</td>
+          <td class="col-duration">38.33</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_005_fenpei_case.py:26 分配<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_006_guihuan_case.py::TestGuihCase::test_shiyr_guih_bum_shouh</td>
+          <td class="col-duration">35.38</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_006_guihuan_case.py:25 归还<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_006_guihuan_case.py::TestGuihCase::test_bum_guih_danw_shouh</td>
+          <td class="col-duration">34.23</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_006_guihuan_case.py:25 归还<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_007_zhuanyi_case.py::TestZhuanyCase::test_danw_zhuany_bum_shouh</td>
+          <td class="col-duration">37.60</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_007_zhuanyi_case.py:25 转移流程<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_007_zhuanyi_case.py::TestZhuanyCase::test_danw_zhuany_shiyr_shouh</td>
+          <td class="col-duration">34.95</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_007_zhuanyi_case.py:25 转移流程<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_007_zhuanyi_case.py::TestZhuanyCase::test_bum_zhuany_shiyr_shouh</td>
+          <td class="col-duration">61.70</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_007_zhuanyi_case.py:25 转移流程<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh</td>
+          <td class="col-duration">32.89</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:25 收回<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_bum_shouh_all</td>
+          <td class="col-duration">39.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:25 收回<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh</td>
+          <td class="col-duration">113.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:25 收回<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_008_shouhui_case.py::TestShouhCase::test_danw_shouh_all</td>
+          <td class="col-duration">143.41</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_008_shouhui_case.py:25 收回<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_bty</td>
+          <td class="col-duration">46.31</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_009_weix_case.py:25 维修<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_xvzu_01</td>
+          <td class="col-duration">35.19</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_011_chengzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_tuihuan_02</td>
+          <td class="col-duration">34.29</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_011_chengzu_case.py:25 出租<br/></div></td></tr></tbody></table></body></html>

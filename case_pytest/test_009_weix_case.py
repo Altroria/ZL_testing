@@ -119,5 +119,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_weix.html",
-        case_path + "\\test_009_weix_case.py::TestWeixCase"
+        case_path + "\\test_009_weix_case.py::TestWeixCase::test_shiyr_weix_bum_ty"
     ])

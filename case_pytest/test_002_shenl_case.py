@@ -29,9 +29,11 @@ class TestShenlCase():
         self.driver.refresh()
 
     def teardown_class(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #使用人申领-部门退回
     def test_shiyr_sl_bum_th(self):
@@ -57,7 +59,7 @@ class TestShenlCase():
         self.zl.user_shenl.shenl_tj()
         time.sleep(3)
         self.driver.refresh()
-        success = self.zl.dep_peiz.peiz_ss_success("同意")
+        success = self.zl.dep_peiz.peiz_ss_success("不同意")
         assert success == True
 
     #使用人申领-部门送审-单位退回
@@ -67,7 +69,7 @@ class TestShenlCase():
         self.zl.dep_peiz.peiz_ss("送审")
         time.sleep(3)
         self.driver.refresh()
-        success = self.zl.unit_peiz.peiz_ss_success("退回")
+        success = self.zl.unit_peiz.peiz_ss_tuih()
         assert success == True
 
     #使用人申领-部门送审-单位同意

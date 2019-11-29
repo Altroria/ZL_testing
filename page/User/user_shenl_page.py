@@ -59,4 +59,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(5)
-    a.shenl_tj()
+    a.shenl_xinz("PC服务器")

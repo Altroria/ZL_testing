@@ -37,6 +37,8 @@ class BaseHandle(SeleniumDriver):
                     #调用切换页签
                     try:
                         self.handle.switch_page_sign(sign_value)
+                        if sign_value == "所有资产":
+                            self.handle.click_element("首页", "图片列表模式")
                     except:
                         print("页签切换失败")
                 if search_value != None:
@@ -105,11 +107,11 @@ class BaseHandle(SeleniumDriver):
                 "资产分类", value)
             if first_class != "土地、房屋及构筑物":
                 self.click_element("一级分类", first_class)
-            time.sleep(1)
+            time.sleep(0.5)
             self.click_element("二级分类", second_class)
-            time.sleep(1)
+            time.sleep(0.5)
             self.click_element("三级分类", third_class)
-            time.sleep(1)
+            time.sleep(0.5)
             self.click_element("四级分类", value)
         except:
             #三级分类
@@ -117,9 +119,9 @@ class BaseHandle(SeleniumDriver):
                 second_class, first_class = self.get_class_value("资产分类", value)
                 if first_class != "土地、房屋及构筑物":
                     self.click_element("一级分类", first_class)
-                time.sleep(1)
+                time.sleep(0.5)
                 self.click_element("二级分类", second_class)
-                time.sleep(1)
+                time.sleep(0.5)
                 self.click_element("三级分类", value)
             except:
                 #五级级分类
@@ -128,13 +130,13 @@ class BaseHandle(SeleniumDriver):
                         "资产分类", value)
                     if first_class != "土地、房屋及构筑物":
                         self.click_element("一级分类", first_class)
-                    time.sleep(1)
+                    time.sleep(0.5)
                     self.click_element("二级分类", second_class)
-                    time.sleep(1)
+                    time.sleep(0.5)
                     self.click_element("三级分类", third_class)
-                    time.sleep(1)
+                    time.sleep(0.5)
                     self.click_element("四级分类", fourth_class)
-                    time.sleep(1)
+                    time.sleep(0.5)
                     self.click_element("五级分类", value)
                 except:
                     print("分类输入错误。请选择最末级分类、或者加上上级分类")
