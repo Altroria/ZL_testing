@@ -34,6 +34,7 @@ class TestWeixCase():
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #使用人申请维修-部门同意-费用化登账
     def test_shiyr_weix_bum_ty(self):

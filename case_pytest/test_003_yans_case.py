@@ -29,9 +29,11 @@ class TestYansglCase():
         self.driver.refresh()
 
     def teardown_class(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #部门新增资产
     def test_bum_add_new_card(self):

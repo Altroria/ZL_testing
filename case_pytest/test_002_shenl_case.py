@@ -69,7 +69,7 @@ class TestShenlCase():
         self.zl.dep_peiz.peiz_ss("送审")
         time.sleep(3)
         self.driver.refresh()
-        success = self.zl.unit_peiz.peiz_ss_tuih()
+        success = self.zl.unit_peiz.peiz_ss_success("退回")
         assert success == True
 
     #使用人申领-部门送审-单位同意
@@ -111,5 +111,5 @@ if __name__ == "__main__":
         "-v",
         "-q",
         "--html=report_shengl.html",
-        case_path + "\\test_002_shenl_case.py::TestShenlCase"
+        case_path + "\\test_002_shenl_case.py::TestShenlCase::test_shiyr_sl_bum_ss_danw_th"
     ])

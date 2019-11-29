@@ -31,9 +31,11 @@ class TestFenpCase():
         self.driver.refresh()
 
     def teardown_class(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #单位分配资产至部门
     def test_danw_fp_bum_shouh(self):

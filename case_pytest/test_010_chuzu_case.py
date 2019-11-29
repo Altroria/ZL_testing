@@ -34,6 +34,7 @@ class TestChuzCase():
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #单位出租
     def test_chuzu_danw_faq_danw_zhix(self):

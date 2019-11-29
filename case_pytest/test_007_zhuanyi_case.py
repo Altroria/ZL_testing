@@ -30,9 +30,11 @@ class TestZhuanyCase():
         self.driver.refresh()
 
     def teardown_class(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #单位转移资产至部门-部门收货
     def test_danw_zhuany_bum_shouh(self):

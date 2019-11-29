@@ -30,9 +30,11 @@ class TestGuihCase():
         self.driver.refresh()
 
     def teardown_class(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #使用人归还-部门收货
     def test_shiyr_guih_bum_shouh(self):

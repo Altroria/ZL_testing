@@ -32,9 +32,11 @@ class TestDengzCase():
         self.driver.refresh()
 
     def tearDownClass(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #送财务登账-不填发票号-财务登账
     def test_danw_dengz_butfp_caiw_dengz(self):

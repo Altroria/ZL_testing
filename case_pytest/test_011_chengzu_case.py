@@ -29,9 +29,11 @@ class Testchengzu():
         self.driver.refresh()
 
     def teardown_sclass(self):
+        time.sleep(2)
         self.log.close_handle()
         time.sleep(2)
         self.driver.close()
+        time.sleep(2)
 
     #承租——续租
     def test_chenz_xvzu_01(self):
