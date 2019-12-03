@@ -315,22 +315,31 @@ class SeleniumDriver(object):
             else:
                 print("输入失败，定位元素没找到。")
 
-    def click_element(self,
-                      by,
-                      info,
-                      node_bys=None,
-                      node_info=None,
-                      index=None):
+    def click_element(self, by, info, index=None):
         '''
         点击元素
         '''
-        if node_bys == None:
-            if index == None:
-                element = self.get_element(by, info)
-            else:
-                element = self.get_list_element(by, info, index)
+
+        if index == None:
+            element = self.get_element(by, info)
         else:
-            element = self.get_level_element(by, info, node_bys, node_info, index)
+            element = self.get_list_element(by, info, index)
+        element.click()
+
+    def click_level_element(self,
+                            by,
+                            info,
+                            node_bys=None,
+                            node_info=None,
+                            index=None):
+        '''
+        点击层级元素
+        '''
+        if index == None:
+            element = self.get_level_element(by, info, node_bys, node_info)
+        else:
+            element = self.get_level_element(by, info, node_bys, node_info,
+                                             index)
         element.click()
 
     def right_click(self, by, info, index=None):

@@ -61,11 +61,11 @@ class make_date():
         self.unit_yans.start_acceptance()
         self.unit_yans.yansgl_pass()
 
-    def unit_suoyzc_dengz(self):
+    def unit_suoyzc_dengz(self, value=None, card_value=None):
         '''
         单位资产管理员验收登账卡片
         '''
-        self.unit_suoyzc_wdengz()
+        self.unit_suoyzc_wdengz(value, card_value)
         self.unit_dengz.songcw()
         self.fin_dengz.dengz()
 
@@ -331,11 +331,11 @@ class make_date():
         self.unit_fenp.fenp("使用人")
         self.user_shouy.receipt("确认收货")
 
-    def user_suoyzc_dengz(self):
+    def user_suoyzc_dengz(self, value=None, card_value=None):
         '''
         使用人所有资产界面添加登账卡片
         '''
-        self.unit_suoyzc_dengz()
+        self.unit_suoyzc_dengz(value, card_value)
         self.unit_fenp.fenp("使用人")
         self.user_shouy.receipt("确认收货")
 
@@ -470,11 +470,11 @@ class make_date():
         '''
         self.dep_yans.add_card(card_value="pc服务器")
 
-    def dep_suoyzc_dengz(self):
+    def dep_suoyzc_dengz(self, value=None, card_value=None):
         '''
         部门资产管理员所有资产界面添加登账卡片
         '''
-        self.unit_suoyzc_dengz()
+        self.unit_suoyzc_dengz(value, card_value)
         self.handle.refresh_f5()
         self.unit_fenp.fenp("部门")
         self.dep_shouy.receipt("确认收货")
