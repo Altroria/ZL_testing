@@ -89,7 +89,7 @@ class make_date():
         '''
         新增验管理--待验收数据
         '''
-        self.unit_yans.add_card(card_value="pc服务器")
+        self.unit_yans.add_card("1000", card_value="pc服务器")
 
     def unit_yans_02(self):
         '''
@@ -738,18 +738,18 @@ class make_date():
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = make_date(driver)
-    driver.get('http://58.246.240.154:7878/zl/179333')
+    driver.get('http://58.246.240.154:7878/zl/179888')
     driver.maximize_window()
-    a.handle.send_value('登录', "username", "ss")
+    a.handle.send_value('登录', "username", "zlq")
     a.handle.send_value('登录', "password", "123")
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    n = 1
+    n = 30
     sum = 0
     counter = 1
     while counter <= n:
         sum = sum + counter
         counter += 1
-        a.dep_chuz_01()
+        a.unit_yans_01()
         a.handle.refresh_f5()
