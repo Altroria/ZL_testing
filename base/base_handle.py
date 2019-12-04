@@ -15,7 +15,11 @@ class BaseHandle(SeleniumDriver):
     def __init__(self, driver):
         SeleniumDriver.__init__(self, driver)
 
-    def functional_combination(usr_value=None, menu_value=None, sign_value=None, index=None, search_value=None):
+    def functional_combination(usr_value=None,
+                               menu_value=None,
+                               sign_value=None,
+                               index=None,
+                               search_value=None):
         '''
         装饰器：功能组合
         usr_value 切换用户
@@ -48,12 +52,23 @@ class BaseHandle(SeleniumDriver):
                     except:
                         print("搜索卡片失败")
                 if index != None:
-                    #调用点击卡片
-                    try:
-                        time.sleep(3)
-                        self.handle.check_card(index)
-                    except:
-                        print("勾选卡片错误")
+                    if index == "全选":
+                        try:
+                            self.handle.click_element("通用", "全选")
+                        except:
+                            print("全选错误")
+                    elif index == "选择当前页":
+                        try:
+                            self.handle.click_element("通用", "选择当前页")
+                        except:
+                            print("选择当前页错误")
+                    else:
+                        #调用点击卡片
+                        try:
+                            time.sleep(3)
+                            self.handle.check_card(index)
+                        except:
+                            print("勾选卡片错误")
                 return func(self, *args, **kwargs)
 
             return wrapper  # 形成闭包
@@ -62,8 +77,8 @@ class BaseHandle(SeleniumDriver):
 
     # 判断当前角色
     def get_role(self):
-        self.wait_element('通用', 'role')
-        role = self.get_element('通用', 'role').text
+        self.wait_element('角色', 'role')
+        role = self.get_element('角色', 'role').text
         role_name = role.split('-')[0]
         return role_name
 
@@ -147,20 +162,20 @@ class BaseHandle(SeleniumDriver):
         role_value = self.get_role()
         role_name = role_value.split('-')[0]
         if role_name != value:
-            self.click_element('通用', 'role')
+            self.click_element('角色', 'role')
             time.sleep(0.5)
             if value == '使用人':
-                self.click_element('通用', 'user')
+                self.click_element('角色', 'user')
             elif value == '部门资产管理员':
-                self.click_element('通用', 'departmental_Manager')
+                self.click_element('角色', 'departmental_Manager')
             elif value == '部门领导':
-                self.click_element('通用', 'departmental_leadership')
+                self.click_element('角色', 'departmental_leadership')
             elif value == '单位资产管理员':
-                self.click_element('通用', 'unit_Manager')
+                self.click_element('角色', 'unit_Manager')
             elif value == '单位领导':
-                self.click_element('通用', 'unit_leadership')
+                self.click_element('角色', 'unit_leadership')
             else:
-                self.click_element('通用', 'finance')
+                self.click_element('角色', 'finance')
         else:
             return None
 
@@ -207,15 +222,6 @@ class BaseHandle(SeleniumDriver):
         '''
         return self.get_level_element("通用", "data_img", by, info, index)
 
-    #切换iframe
-    def switch_iframe1(self):
-        self.switch_iframe()
-        self.switch_iframe("iframe", "iframe1")
-
-    def switch_iframe2(self):
-        self.switch_iframe()
-        self.switch_iframe("iframe", "iframe2")
-
     def search_assets(self, value):
         '''
         搜索资产
@@ -223,18 +229,11 @@ class BaseHandle(SeleniumDriver):
         self.send_value("通用", "资产搜索框", value)
         self.click_element("通用", "搜索")
 
-    def select_current_page(self):
-        '''
-        点击选择当前页
-        '''
-        self.switch_iframe_daidz()
-        self.click_element("通用", "选择当前页", 7)
-
+    #勾选卡片
     def check_card(self, index):
         '''
         勾选卡片
         '''
-        #勾选卡片
         n = len(index)
         counter = 1
         while counter <= n:
@@ -248,6 +247,16 @@ class BaseHandle(SeleniumDriver):
         '''
         self.click_element("通用", "_导出")
 
+    #添加资产
+    def add_assets(self, index):
+        time.sleep(2)
+        self.click_element("通用", "添加资产")
+        self.switch_iframe("iframe", "iframe1")
+        aa = self.get_elements("通用", "资产编号_02")[0].text
+        self.check_card(index)
+        self.click_element("通用", "确定_01")
+        self.click_element("通用", "确定")
+        return aa
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()

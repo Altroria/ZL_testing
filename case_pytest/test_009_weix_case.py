@@ -61,6 +61,7 @@ class TestUserWeixCase():
         assert success == True
 
     #使用人申请维修-部门送审-单位同意
+    # 费用化登账后价值不增加
     def test_shiyr_weix_bum_ss_danw_ty(self):
         self.zl.user_shouy.apply_business("申请报修")  # 使用人申请报修
         self.driver.refresh()
@@ -94,6 +95,28 @@ class TestUserWeixCase():
             "操作_申请报修")  # 使用人 在卡片操作栏申请报修
         assert success == True
         success = self.zl.user_shouy.apply_weix_error()  # 流程中卡片发起报修
+        assert success == True
+
+    #删除维修申请
+    def test_shiyr_shanc_01(self):
+        success = self.zl.user_weix.weix_sahnc_success()  # 删除维修单
+        assert success == True
+
+    #业务操作删除维修申请
+    def test_shiyr_shanc_02(self):
+        self.zl.user_shouy.apply_business("申请报修")
+        success = self.zl.user_weix.weix_yewcz_sahnc_success()  # 业务操作删除维修申请
+        assert success == True
+
+    #选择当前页删除
+    def test_shiyr_shanc_03(self):
+        self.zl.user_shouy.apply_business("申请报修")
+        success = self.zl.user_weix.weix_dangqy_sahnc_success()  # 选择当前页删除
+        assert success == True
+
+    #添加资产成功
+    def test_shiyr_add_card_success(self):
+        success = self.zl.user_weix.add_assets_success()
         assert success == True
 
 
@@ -192,5 +215,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_weix.html", case_path +
-        "\\test_009_weix_case.py::TestUnitWeixCase::test_unit_weix_caoz_faq"
+        "\\test_009_weix_case.py::TestUserWeixCase::test_shiyr_add_card_success"
     ])
