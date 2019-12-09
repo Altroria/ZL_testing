@@ -14,7 +14,6 @@ from base.base_handle import BaseHandle
 
 class XinzzcPage():
     def __init__(self, driver):
-        #BaseHandle.__init__(self, driver)
         self.handle = BaseHandle(driver)
 
     #切换iframe
@@ -27,8 +26,8 @@ class XinzzcPage():
             self.handle.click_first_class_menu("新增资产")
             self.switch_iframe()
             self.handle.click_element("财务_新增资产", "摘要", 0)
-            time.sleep(1)
-            self.handle.switch_iframe1()
+            self.handle.switch_iframe()
+            self.handle.switch_iframe("iframe", "iframe1")
             return self.handle.get_element("财务_新增资产", "资产编号").text
         except:
             return None
@@ -50,7 +49,8 @@ class XinzzcPage():
         '''
         time.sleep(2)
         self.handle.click_element("财务_新增资产", "登账")
-        self.handle.switch_iframe1()
+        self.handle.switch_iframe()
+        self.handle.switch_iframe("iframe", "iframe1")
         time.sleep(1)
         self.handle.click_element("财务_新增资产", "财务入账日期", 0)
         self.handle.click_element("通用", "今天")
@@ -78,7 +78,8 @@ class XinzzcPage():
         财务登账成功
         '''
         self.handle.click_element("财务_新增资产", "登账")
-        self.handle.switch_iframe1()
+        self.handle.switch_iframe()
+        self.handle.switch_iframe("iframe", "iframe1")
         time.sleep(2)
         zibh = self.handle.get_element("财务_新增资产", "资产编号_01").text
 
@@ -116,4 +117,4 @@ if __name__ == "__main__":
     time.sleep(2)
     a.handle.click_element('登录', 'login')
     driver.maximize_window()
-    a.dengz_success()
+    a.dengz()

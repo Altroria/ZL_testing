@@ -222,6 +222,7 @@ class BaseHandle(SeleniumDriver):
         '''
         return self.get_level_element("通用", "data_img", by, info, index)
 
+    #通用搜索
     def search_assets(self, value):
         '''
         搜索资产
@@ -241,6 +242,7 @@ class BaseHandle(SeleniumDriver):
             self.click_element("通用", "勾选卡片", index[counter - 1] - 1)
             counter += 1
 
+    #导出
     def export(self):
         '''
         导出
@@ -252,11 +254,14 @@ class BaseHandle(SeleniumDriver):
         time.sleep(2)
         self.click_element("通用", "添加资产")
         self.switch_iframe("iframe", "iframe1")
+        self.click_element("通用", "列表模式")
         aa = self.get_elements("通用", "资产编号_02")[0].text
         self.check_card(index)
         self.click_element("通用", "确定_01")
         self.click_element("通用", "确定")
         return aa
+
+
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()

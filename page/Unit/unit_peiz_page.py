@@ -23,10 +23,10 @@ class PeizlPage():
     #获取提示信息
     def __get_message(self):
         try:
-            time.sleep(1)
             self.handle.switch_iframe()
+            self.handle.wait_element('message', '审核成功')
             message_text = self.handle.get_element('message',
-                                                   'ty_message').text
+                                                   '审核成功').text
         except:
             message_text = None
         return message_text

@@ -72,10 +72,10 @@ class TestUserWeixCase():
         self.driver.refresh()
         self.zl.user_weix.weix_yans(1000)  # 使用人维修验收
         self.driver.refresh()
-        success = self.zl.fin_weix.weix_dengz_success("费用化")  # 财务登账
+        success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.user_shouy.get_jiaz()  # 获取卡片价值
-        assert jiaz_success == "2000.00"  # 费用化登账后价值不增加
+        assert jiaz_success == "3000.00"  # 费用化登账后价值不增加
 
     #使用人申请维修-单位不同意
     def test_shiyr_weix_bum_ss_danw_bty(self):
@@ -117,6 +117,16 @@ class TestUserWeixCase():
     #添加资产成功
     def test_shiyr_add_card_success(self):
         success = self.zl.user_weix.add_assets_success()
+        assert success == True
+
+    #修改维修方式成功
+    def test_shiyr_change_mode_success(self):
+        success = self.zl.user_weix.change_mode_success("换货")
+        assert success == True
+
+    #修改维修原因成功
+    def test_shiyr_weix_reason_success(self):
+        success = self.zl.user_weix.weix_reason_success("测试维修原因")
         assert success == True
 
 
@@ -195,10 +205,10 @@ class TestUnitWeixCase():
         self.driver.refresh()
         self.zl.unit_weix.weix_yans(1000)  # 单位验收
         self.driver.refresh()
-        success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
+        success = self.zl.fin_weix.weix_dengz_success("费用化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.unit_shouy.get_jiaz()  # 获取卡片价值
-        assert jiaz_success == "2000.00"  # 资本化登账后价值增加
+        assert jiaz_success == "1000.00"  # 费用化登账后价值不增加
 
     # 单位 在卡片操作栏申请报修
     # 流程中卡片发起报修
@@ -214,6 +224,6 @@ class TestUnitWeixCase():
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
-        "-s", "-v", "-q", "--html=report_weix.html", case_path +
-        "\\test_009_weix_case.py::TestUserWeixCase::test_shiyr_add_card_success"
+        "-s", "-v", "-q", "--html=report_weix.html",
+        case_path + "\\test_009_weix_case.py::TestUserWeixCase::test_shiyr_weix_reason_success"
     ])

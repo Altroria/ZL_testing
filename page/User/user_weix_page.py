@@ -10,6 +10,7 @@ from selenium import webdriver
 
 import time
 from base.base_handle import BaseHandle
+from util.excel_util import ExcelUtil
 
 
 class UserWeixPage():
@@ -31,7 +32,7 @@ class UserWeixPage():
         return message_text
 
     #勾选维修单审核
-    @BaseHandle.functional_combination("使用人", "我要报修", index=[1])
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交", index=[1])
     def weix_ss(self, value):
         '''
         维修
@@ -42,7 +43,7 @@ class UserWeixPage():
         time.sleep(3)
 
     #选择当前页维修单审核
-    @BaseHandle.functional_combination("使用人", "我要报修", index="选择当前页")
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交", index="选择当前页")
     def weix_dangq_ss(self, value):
         '''
         维修
@@ -54,7 +55,7 @@ class UserWeixPage():
 
     #业务操作-提交申请
     #删除申请
-    @BaseHandle.functional_combination("使用人", "我要报修")
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交")
     def weix_yewcz(self, value):
         '''
         维修-业务操作
@@ -65,15 +66,49 @@ class UserWeixPage():
         time.sleep(3)
 
     #维修-添加资产
-    @BaseHandle.functional_combination("使用人", "我要报修")
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交")
     def add_weix_assets(self, index):
         aa = self.handle.add_assets(index)
         return aa
 
     # 修改维修方式
-    def change_mode(self):
-        self.handle.click_element('我要报修', "维修方式", 0)
-        self.handle.click_element('我要报修', "换货")
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交")
+    def change_mode(self, mode_value):
+        '''
+        修改维修方式
+        mode_value: 维修方式
+        '''
+        self.handle.click_element('维修管理', "维修方式", 1)
+        self.handle.click_element('维修管理', mode_value)
+
+    # 填维修原因
+    @BaseHandle.functional_combination("使用人", "我要报修", "待提交")
+    def weix_reason(self, value):
+        '''
+        填维修原因
+        value: 原因
+        '''
+        self.handle.click_element('维修管理', "输入维修原因")
+        self.handle.send_value('维修管理', "维修原因", value)
+        self.handle.click_element('维修管理', "维修方式", 1)
+
+    # 待提交页面搜索功能
+
+    #更多筛选
+
+    #翻页
+
+    #导出
+    #@BaseHandle.functional_combination("使用人", "我要报修", "待提交", index=[1])
+    def export_success(self):
+        #self.handle.export()
+        #获取导出文件信息
+        ex = ExcelUtil("C:\\Users\\sunH\\Downloads\\待提交_20191206.xls")
+        value = ex.get_data()
+        return value
+
+
+    #打印
 
     #删除维修单成功
     def weix_sahnc_success(self):
@@ -112,6 +147,22 @@ class UserWeixPage():
         else:
             return False
 
+    # 修改维修方式成功
+    def change_mode_success(self, mode_value):
+        self.change_mode(mode_value)
+        if self.get_message("修改成功") == "修改成功":
+            return True
+        else:
+            return False
+
+    # 填维修原因
+    def weix_reason_success(self, value):
+        self.weix_reason(value)
+        if self.get_message("修改成功") == "修改成功":
+            return True
+        else:
+            return False
+
     #维修验收
     @BaseHandle.functional_combination("使用人", "我要报修", "已审核")
     def weix_yans(self, key):
@@ -140,4 +191,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(5)
-    print(a.add_assets_success())
+    print(a.export_success())

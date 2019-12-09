@@ -32,7 +32,7 @@ class WeixglPage():
         return message_text
 
     #维修审核
-    @BaseHandle.functional_combination("单位资产管理员", "维修管理", index=[1])
+    @BaseHandle.functional_combination("单位资产管理员", "维修管理", "待审核", index=[1])
     def weix_ss(self, value):
         '''
         value:退回、送审、同意、不同意

@@ -54,3 +54,8 @@ class ExcelUtil(object):
         write_data.get_sheet(0).write(row, 7, value)
         write_data.save(
             os.path.join(os.getcwd()) + "/config/" + "keyword.xlsx")
+
+
+if __name__ == "__main__":
+    ex = ExcelUtil("C:\\Users\\sunH\\Desktop\\待提交_20191206.xls")
+    print(ex.get_data())

@@ -72,4 +72,4 @@ if __name__ == "__main__":
     a.handle.send_value('登录', "password", "123")
     time.sleep(1)
     a.handle.click_element('登录', 'login')
-    print(a.weix_dengz_success("资本化"))
+    print(a.weix_dengz_success("费用化"))
