@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.join(os.getcwd()))
 from selenium import webdriver
 import time
-from config import url
+from config import settings
 from base.base_handle import BaseHandle
 
 
@@ -17,22 +17,22 @@ class LoginPage(BaseHandle):
 
     def cookie_login(self):
         '''
-        self.get_url(url.zl)
+        self.get_url(settings.zl)
         self.set_cookie()
         time.sleep(1)
-        self.get_url(url.danw)
+        self.get_url(settings.danw)
         try:
             time.sleep(2)
             self.get_element('通用', 'users').text
         except:
-            self.get_url(url.zl)
+            self.get_url(settings.zl)
             time.sleep(1)
-            self.login_success(url.name, url.password)
+            self.login_success(settings.name, settings.password)
             self.get_cookie()
         '''
-        self.get_url(url.zl)
+        self.get_url(settings.zl)
         time.sleep(1)
-        self.login_success(url.name, url.password)
+        self.login_success(settings.name, settings.password)
 
     #输入用户名
     def send_user_name(self, username=None):
