@@ -73,6 +73,7 @@ class UserShouyPage():
         if yewu == "申请归还":
             time.sleep(2)
             self.handle.click_element("使用人_首页", "确定")
+        time.sleep(2)
 
     #申请报修错误
     def apply_weix_error(self):

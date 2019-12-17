@@ -84,6 +84,7 @@ class ShouyPage():
         if yewu == "申请出租" or yewu == "申请出借":
             time.sleep(2)
             self.handle.click_element("通用", "确定")
+        time.sleep(2)
 
     #申请报修错误
     def apply_weix_error(self):

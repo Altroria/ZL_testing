@@ -59,7 +59,7 @@ class LoginPage(BaseHandle):
     def get_personal_info(self):
         try:
             time.sleep(2)
-            message_text = self.get_element('通用', 'users').text
+            message_text = self.get_element('角色', 'users').text
         except:
             message_text = None
         return message_text
@@ -124,5 +124,5 @@ class LoginPage(BaseHandle):
 if __name__ == "__main__":
     driver = webdriver.Chrome()
     a = LoginPage(driver)
-    #driver.get('http://58.246.240.154:7878/zl/6666')
-    a.cookie_login()
+    driver.get('http://58.246.240.154:7878/zl/179030')
+    print(a.login_success("ss", "123"))

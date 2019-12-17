@@ -19,7 +19,7 @@ class TestLoginCase():
         self.logger = self.log.get_log()
         #初始化driver
         self.driver = BrowserEngine().init_driver()
-        self.driver.get('http://58.246.240.154:7878/zl/179333')
+        self.driver.get('http://58.246.240.154:7878/zl/179030')
         self.driver.maximize_window()
         self.login = LoginPage(self.driver)
 
@@ -64,5 +64,5 @@ if __name__ == "__main__":
     #pytest.main(["-s", "C:\\ZL_testing\\case_pytest\\test_01.py::TestLoginCase::test_login_name_error"]) # 执行指定用例
     pytest.main([
         "-s", "-v", "-q",
-        "C:\\ZL_testing\\case_pytest\\test_001_login_case.py::TestLoginCase"
+        "C:\\ZL_testing\\case_pytest\\test_001_login_case.py::TestLoginCase::test_login_success"
     ])

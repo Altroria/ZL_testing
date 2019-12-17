@@ -46,6 +46,7 @@ class TestUserWeixCase():
         self.driver.refresh()
         self.zl.user_weix.weix_yans(1000)  # 使用人维修验收
         self.driver.refresh()
+        time.sleep(2)
         success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.user_shouy.get_jiaz()  # 获取卡片价值
@@ -72,6 +73,7 @@ class TestUserWeixCase():
         self.driver.refresh()
         self.zl.user_weix.weix_yans(1000)  # 使用人维修验收
         self.driver.refresh()
+        time.sleep(2)
         success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.user_shouy.get_jiaz()  # 获取卡片价值
@@ -160,6 +162,7 @@ class TestDepWeixCase():
         self.driver.refresh()
         self.zl.dep_weix.weix_yans(1000)  # 部门验收
         self.driver.refresh()
+        time.sleep(2)
         success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.dep_shouy.get_jiaz()  # 获取卡片价值
@@ -205,10 +208,11 @@ class TestUnitWeixCase():
         self.driver.refresh()
         self.zl.unit_weix.weix_yans(1000)  # 单位验收
         self.driver.refresh()
-        success = self.zl.fin_weix.weix_dengz_success("费用化")  # 财务登账
+        time.sleep(2)
+        success = self.zl.fin_weix.weix_dengz_success("资本化")  # 财务登账
         assert success == True
         jiaz_success = self.zl.unit_shouy.get_jiaz()  # 获取卡片价值
-        assert jiaz_success == "1000.00"  # 费用化登账后价值不增加
+        assert jiaz_success == "2000.00"  # 费用化登账后价值不增加
 
     # 单位 在卡片操作栏申请报修
     # 流程中卡片发起报修
@@ -225,5 +229,5 @@ if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_weix.html",
-        case_path + "\\test_009_weix_case.py::TestUserWeixCase::test_shiyr_weix_reason_success"
+        case_path + "\\test_009_weix_case.py::TestUserWeixCase"
     ])
