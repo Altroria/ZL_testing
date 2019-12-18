@@ -15,18 +15,18 @@ import base64
 import cx_Oracle
 import pandas as pd
 from ShowapiRequest import ShowapiRequest
-from PIL import Image
 from base.base_class import SeleniumDriver
 from base.base_handle import BaseHandle
 
 from tkinter import *
+from PIL import Image
 
 
 class SysBusiness(object):
     def __init__(self):
         self.myWindow = Tk()
         #设置标题
-        self.myWindow.title('重建用户')
+        self.myWindow.title('重建单位用户')
 
     # 连接oracle
     def Connect_oracle(self):
@@ -46,7 +46,7 @@ class SysBusiness(object):
         #调用存储过程
         #删除单位
         try:
-            P_ORGID = "7B2998E7A2CA4C32A5F9B58652EE7999"
+            P_ORGID = "7B2998E7A2CA4C32A5F9B58652EE7333"
             msg = self.curs.var(cx_Oracle.STRING)  # plsql出参
             args = [P_ORGID, msg]
             self.curs.callproc("AST_COMMON.CLEAR", args)  # 删除单位
@@ -78,7 +78,7 @@ class SysBusiness(object):
         self.driver = webdriver.Chrome()
         self.sys_o = SeleniumDriver(self.driver)
         self.sys_h = BaseHandle(self.driver)
-        self.driver.get('http://192.168.1.164:27979/zl/179999')
+        self.driver.get('http://192.168.1.164:27979/zl/179333')
         self.sys_o.handle_windows("max")
         self.sys_o.send_value('登录', "username", "admin")
         self.sys_o.send_value('登录', "password", "zl123456zl")
@@ -187,7 +187,10 @@ class SysBusiness(object):
         self.sys_o.click_element('后台管理', '保存')
 
     def close_driver(self):
-        self.driver.close()
+        try:
+            self.driver.close()
+        except:
+            pass
         self.myWindow.quit()
 
     def init_operation(self):
@@ -210,7 +213,7 @@ class SysBusiness(object):
         self.add_user()
         self.init_user()
 
-    def aaa(self):
+    def Button(self):
         Button(
             self.myWindow,
             text='初始化数据',
@@ -234,4 +237,4 @@ class SysBusiness(object):
 
 if __name__ == "__main__":
     a = SysBusiness()
-    a.aaa()
+    a.Button()
