@@ -32,7 +32,7 @@ class PeizlPage():
         return message_text
 
     #单位审核
-    @BaseHandle.functional_combination("单位资产管理员", "配置管理", index=[1])
+    @BaseHandle.functional_combination("单位资产管理员", "配置管理", "待审核", index=[1])
     def peiz_ss(self, value):
         '''
         单位审核

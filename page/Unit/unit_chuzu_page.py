@@ -32,7 +32,7 @@ class ChuzPage():
         return message_text
 
     #出租生成单据
-    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", index=[1])
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待审核", index=[1])
     def chuzu_scdj(self):
         '''
         出租生成单据
@@ -63,6 +63,46 @@ class ChuzPage():
         self.handle.click_element("出租", "附报材料_勾选", 2)
         self.handle.click_element("通用", "确定")
 
+    #添加资产
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待审核")
+    def chuzu_addcard(self, value):
+        '''
+        添加资产
+        '''
+        self.handle.click_element("通用", "添加资产")
+        time.sleep(1)
+        self.handle.switch_iframe("iframe", "iframe1")
+        time.sleep(1)
+        card_n = self.handle.get_element("出租", "添加资产_卡片编号").text
+        self.handle.click_element("出租", "添加资产_勾选卡片", 0)
+        time.sleep(1)
+        self.handle.click_element("通用", "确定_01")
+        time.sleep(1)
+        if value == "出租":
+            self.handle.click_element("出租", "申请出租资产")
+        else:
+            self.handle.click_element("出租", "申请出借资产")
+        time.sleep(1)
+        self.handle.click_element("通用", "确定")
+        return card_n
+
+    #取消申请
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待审核", index=[1])
+    def quxiao(self):
+        self.handle.click_element("出租", "取消申请")
+        self.handle.click_element("通用", "确定")
+
+    #操作栏——生成单据
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待审核")
+    def caoz_scdj(self):
+        self.handle.click_element("出租", "操作_生成单据")
+
+    #操作栏——取消申请
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待审核")
+    def caoz_qux(self):
+        self.handle.click_element("出租", "操作_取消申请")
+        self.handle.click_element("通用", "确定")
+
     #送审
     @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待送审", index=[1])
     def chuzu_ss(self):
@@ -72,6 +112,24 @@ class ChuzPage():
         self.handle.click_element("出租", "送审")
         time.sleep(1)
         self.handle.click_element("通用", "确定")
+
+    #删除
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待送审")
+    def chuzu_del(self):
+        '''
+        删除
+        '''
+        self.handle.click_element("出租", "删除")
+        time.sleep(1)
+        self.handle.click_element("通用", "确定")
+
+    #修改
+    @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "待送审")
+    def chuzu_xiug(self):
+        '''
+        修改
+        '''
+        self.handle.click_element("出租", "修改")
 
     #通过
     @BaseHandle.functional_combination("单位资产管理员", "出租 (借)", "审批中")
@@ -138,6 +196,54 @@ class ChuzPage():
         else:
             return False
 
+    def chuzu_addcard_success(self, value):
+        aa = self.chuzu_addcard(value)
+        time.sleep(2)
+        self.handle.switch_iframe()
+        self.switch_iframe()
+        bb = self.handle.get_level_element("通用", "data_info", "通用", "资产编号",
+                                           0).text
+        if aa == bb[5:]:
+            return True
+        else:
+            return False
+
+    def quxiao_success(self):
+        self.quxiao()
+        if self.__get_message() == "取消申请成功":
+            return True
+        else:
+            return False
+
+    def caoz_qux_success(self):
+        self.caoz_qux()
+        if self.__get_message() == "取消申请成功":
+            return True
+        else:
+            return False
+
+    def caoz_scdj_success(self):
+        self.caoz_scdj()
+        self.handle.wait_element("出租", "下一步")
+        if self.handle.get_element("出租", "下一步"):
+            return True
+        else:
+            return False
+
+    def chuzu_del_success(self):
+        self.chuzu_del()
+        if self.__get_message() == "删除成功":
+            return True
+        else:
+            return False
+
+    def chuzu_xiug_success(self):
+        self.chuzu_xiug()
+        self.handle.wait_element("出租", "下一步")
+        if self.handle.get_element("出租", "下一步"):
+            return True
+        else:
+            return False
 
 if __name__ == "__main__":
     driver = webdriver.Chrome()
@@ -150,4 +256,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(2)
-    print(a.chuzu_shouyi("送财务部门"))
+    print(a.quxiao_success())

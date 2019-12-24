@@ -30,7 +30,7 @@ class DepPeizlPage():
             message_text = None
         return message_text
 
-    @BaseHandle.functional_combination("部门资产管理员", "配置管理")
+    @BaseHandle.functional_combination("部门资产管理员", "配置管理", "待审核")
     def peiz_tj(self, card_value="PC服务器"):
         '''
         增加申领
@@ -50,7 +50,7 @@ class DepPeizlPage():
         self.handle.click_element("配置管理", "办公使用")
         self.handle.click_element("通用", "确定")
 
-    @BaseHandle.functional_combination("部门资产管理员", "配置管理", index=[1])
+    @BaseHandle.functional_combination("部门资产管理员", "配置管理", "待审核", index=[1])
     def peiz_ss(self, value="同意"):
         '''
         部门审核

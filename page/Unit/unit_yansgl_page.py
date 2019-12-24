@@ -130,4 +130,4 @@ if __name__ == "__main__":
     time.sleep(1)
     a.handle.click_element('登录', 'login')
     time.sleep(1)
-    a.add_card("1000", "PC服务器")
+    a.add_card(value="1000", card_value='pc服务器')

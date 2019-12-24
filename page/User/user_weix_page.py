@@ -107,7 +107,6 @@ class UserWeixPage():
         value = ex.get_data()
         return value
 
-
     #打印
 
     #删除维修单成功

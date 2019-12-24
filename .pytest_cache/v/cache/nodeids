@@ -87,6 +87,13 @@
   "case_pytest/test_009_weix_case.py::TestUnitWeixCase::test_danw_faq_danw_ty",
   "case_pytest/test_009_weix_case.py::TestUnitWeixCase::test_unit_weix_caoz_faq",
   "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_danw_faq_danw_zhix",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chujie_danw_faq_danw_zhix",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_addcard_chuz",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_addcard_chuj",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_caoz_qux",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_caoz_scdj",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_xiug",
+  "case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_del",
   "case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_xvzu_01",
   "case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_tuihuan_01",
   "case_pytest/test_011_chengzu_case.py::Testchengzu::test_chenz_tuihuan_02"

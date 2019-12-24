@@ -67,6 +67,7 @@ class TestZhuanyCase():
     def test_shiyr_zhuany_shiyr_shouh(self):
         self.zl.unit_shouy.apply_business("申请转移")
         self.zl.unit_zhuany.zhuany("使用人")
+        self.zl.handle.refresh_f5()
         self.zl.user_shouy.receipt("确认收货")
         self.zl.user_shouy.apply_business("申请转移")
         self.zl.user_zhuany.zhuany("使用人")

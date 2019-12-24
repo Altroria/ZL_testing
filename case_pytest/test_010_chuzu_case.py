@@ -47,10 +47,61 @@ class TestChuzCase():
         success = self.zl.fin_shouy.shouy_dengz_success()
         assert success == True
 
+    #单位出借
+    def test_chujie_danw_faq_danw_zhix(self):
+        self.zl.unit_shouy.apply_business("申请出借")
+        self.zl.unit_chuzu.chuzu_scdj()  # 生成单据
+        self.zl.unit_chuzu.chuzu_ss()  # 送审
+        self.zl.unit_chuzu.chuzu_zhix()  # 执行
+        self.zl.unit_chuzu.chuzu_shouyi("送财务部门")
+        self.zl.unit_chuzu.chuzu_shouh()
+        success = self.zl.fin_shouy.shouy_dengz_success()
+        assert success == True
+
+    #添加资产
+    #出租
+    def test_addcard_chuz(self):
+        success = self.zl.unit_chuzu.chuzu_addcard_success("出租")
+        assert success == True
+        success = self.zl.unit_chuzu.quxiao_success()
+        assert success == True
+
+    #添加资产
+    #出借
+    def test_addcard_chuj(self):
+        success = self.zl.unit_chuzu.chuzu_addcard_success("出借")
+        assert success == True
+        success = self.zl.unit_chuzu.quxiao_success()
+        assert success == True
+
+    #操作栏取消单据
+    def test_caoz_qux(self):
+        success = self.zl.unit_chuzu.chuzu_addcard_success("出租")
+        assert success == True
+        success = self.zl.unit_chuzu.caoz_qux_success()
+        assert success == True
+
+    #操作栏生成单据
+    def test_caoz_scdj(self):
+        success = self.zl.unit_chuzu.chuzu_addcard_success("出借")
+        assert success == True
+        success = self.zl.unit_chuzu.caoz_scdj_success()
+        assert success == True
+
+    #待送审-修改
+    def test_chuzu_xiug(self):
+        success = self.zl.unit_chuzu.chuzu_xiug_success()
+        assert success == True
+
+    #待送审-删除
+    def test_chuzu_del(self):
+        success = self.zl.unit_chuzu.chuzu_del_success()
+        assert success == True
+
 
 if __name__ == "__main__":
     case_path = os.path.join(os.getcwd(), 'case_pytest')
     pytest.main([
         "-s", "-v", "-q", "--html=report_chuzu.html",
-        case_path + "\\test_010_chuzu_case.py::TestChuzCase"
+        case_path + "\\test_010_chuzu_case.py"
     ])

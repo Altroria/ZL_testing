@@ -241,7 +241,7 @@ function filter_table(elem) {
 }
 </script>
     <h1>report_chuzu.html</h1>
-    <p>Report generated on 12-Dec-2019 at 16:14:12 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.0.0</p>
+    <p>Report generated on 20-Dec-2019 at 17:03:41 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.0.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -260,8 +260,8 @@ function filter_table(elem) {
         <td>Python</td>
         <td>3.7.2</td></tr></table>
     <h2>Summary</h2>
-    <p>1 tests ran in 129.07 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">1 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>8 tests ran in 837.43 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">7 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">1 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -272,11 +272,74 @@ function filter_table(elem) {
           <th>Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_del</td>
+          <td class="col-duration">45.67</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;test_010_chuzu_case.TestChuzCase object at 0x044CE370&gt;<br/><br/>    def test_chuzu_del(self):<br/>&gt;       success = self.zl.unit_chuzu.chuzu_del_success()<br/><br/>case_pytest\test_010_chuzu_case.py:98: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/>page\Unit\unit_chuzu_page.py:234: in chuzu_del_success<br/>    self.chuzu_del()<br/>base\base_handle.py:72: in wrapper<br/>    return func(self, *args, **kwargs)<br/>page\Unit\unit_chuzu_page.py:124: in chuzu_del<br/>    self.handle.click_element(&quot;通用&quot;, &quot;确定&quot;)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ <br/><br/>self = &lt;base.base_handle.BaseHandle object at 0x044CEC50&gt;, by = &#x27;通用&#x27;, info = &#x27;确定&#x27;, index = None<br/><br/>    def click_element(self, by, info, index=None):<br/>        &#x27;&#x27;&#x27;<br/>        点击元素<br/>        &#x27;&#x27;&#x27;<br/>    <br/>        if index == None:<br/>            element = self.get_element(by, info)<br/>        else:<br/>            element = self.get_list_element(by, info, index)<br/>&gt;       element.click()<br/><span class="error">E       AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;click&#x27;</span><br/><br/>base\base_class.py:327: AttributeError<br/> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_danw_faq_danw_zhix</td>
-          <td class="col-duration">67.86</td>
+          <td class="col-duration">74.39</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chujie_danw_faq_danw_zhix</td>
+          <td class="col-duration">71.98</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_addcard_chuz</td>
+          <td class="col-duration">23.31</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_addcard_chuj</td>
+          <td class="col-duration">22.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_caoz_qux</td>
+          <td class="col-duration">18.95</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_caoz_scdj</td>
+          <td class="col-duration">18.34</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> -------------------------------Captured log setup------------------------------- <br/>INFO     log.user_log:test_010_chuzu_case.py:25 出租<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case_pytest/test_010_chuzu_case.py::TestChuzCase::test_chuzu_xiug</td>
+          <td class="col-duration">4.25</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">

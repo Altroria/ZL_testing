@@ -142,7 +142,7 @@ class SysBusiness(object):
         time.sleep(1)
         self.sys_o.click_element("后台管理", "折旧开关")
         time.sleep(1)
-        self.sys_o.click_element("后台管理", "新会计制度基础版")
+        self.sys_o.click_element("后台管理", "折旧必须升级版")
         time.sleep(1)
         self.sys_o.click_element("通用", "确定")
         time.sleep(2)
@@ -151,6 +151,7 @@ class SysBusiness(object):
         time.sleep(3)
         self.sys_o.switch_iframe("iframe", "iframe_adminHome")
         self.sys_o.click_element('后台管理', '核对部门人员信息')
+        time.sleep(1)
         self.sys_o.right_click('后台管理', '单位树')
         self.sys_o.click_element('后台管理', '新增')
         self.sys_o.send_value('后台管理', '部门名称', '测试')
@@ -237,4 +238,4 @@ class SysBusiness(object):
 
 if __name__ == "__main__":
     a = SysBusiness()
-    a.Button()
+    a.login()
